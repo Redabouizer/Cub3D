@@ -1,2 +1,2 @@
-# Cub3D
+# so_long
 1337
