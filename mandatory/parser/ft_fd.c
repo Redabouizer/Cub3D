@@ -12,7 +12,8 @@
 
 #include "../includes/cub3d.h"
 
-int open_fd(char *file) {
+int open_fd(const char *file)
+{
     int fd;
     
     fd = open(file, O_RDONLY);

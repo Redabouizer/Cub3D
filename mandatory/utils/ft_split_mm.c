@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../includes/cub3d.h"
 
 static size_t	count_words(char const *s, char c)
 {

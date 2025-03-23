@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/03/22 20:28:00 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/03/23 07:33:07 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,15 @@ SRCS = mandatory/get_next_line/get_next_line.c\
 	mandatory/utils/ft_putendl_fd.c\
 	mandatory/utils/ft_putstr_fd.c\
 	mandatory/utils/ft_putchar_fd.c\
+	mandatory/utils/ft_strcmp.c\
+	mandatory/utils/ft_strjoin_mm.c\
+	mandatory/utils/ft_split_mm.c\
+	mandatory/utils/ft_atoi.c\
+	mandatory/utils/ft_strtrim.c\
+	mandatory/utils/ft_substr.c\
+	mandatory/utils/ft_bzero.c\
+	mandatory/utils/ft_calloc.c\
+	mandatory/utils/ft_memset.c\
 	mandatory/parser/ft_fd.c\
 	mandatory/parser/ft_helps.c\
 	mandatory/parser/mem.c\

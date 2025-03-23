@@ -6,36 +6,33 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:48:00 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/03/22 20:42:48 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/03/23 07:20:40 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
 
-int main(int ac, char *av[])
-{
-    char    *file;
-    int     i;
-    int     e;
-    t_mem	*mm;
+int main(int argc, char *argv[]) {
+    t_mem *mm = NULL;
+    char *file;
+    int ext_valid;
 
-    if (ac == 2)
-    {
-        file = av[1]; 
-        i = 0;
-        e = 1;
-        while (file[i])
-        {
-            if ((e = ex_ber(file, i)) == 0)
-                break;
-            i++;
-        }
-        if (e == 1)
-           return (ft_putendl_fd("Error : INCORRECT EXTENTION", 2), 1);
-        else if(ft_stack(&mm ,file) == -1)
-            return (1);
+    if (argc != 2) {
+        ft_putendl_fd("Error: Incorrect arguments. Usage: ./cub3d <map_file>", 2);
+        return 1;
     }
-    else
-        return (ft_putendl_fd("Error : ARGUMENT INCORRECT", 2), 1);
-    return (0);
+
+    file = argv[1];
+    ext_valid = check_ext(file);
+
+    if (ext_valid == 1) {
+        ft_putendl_fd("Error: Incorrect file extension. Expected .cub", 2);
+        return 1;
+    }
+
+    if (validate_map(&mm, file) == -1) {
+        return 1;
+    }
+
+    return 0;
 }

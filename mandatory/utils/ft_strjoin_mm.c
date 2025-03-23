@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../includes/cub3d.h"
 
 char	*ft_strjoin_mm(t_mem **manager, char const *s1, char const *s2)
 {

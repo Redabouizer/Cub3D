@@ -3,6 +3,7 @@ SO mandatory/textures/TEST_IMG/Wolfenstein/greystone.png
 WE mandatory/textures/TEST_IMG/Wolfenstein/wood.png
 EA mandatory/textures/TEST_IMG/Wolfenstein/redbrick.png
 
+
 F 220,100,0
 C 225,30,0
 
@@ -16,3 +17,6 @@ C 225,30,0
 100000000110000111111000001
 100000000000000000000000001
 111111111111111111111111111
+
+
+
