@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:28:33 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/05 22:28:33 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/06 12:38:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,4 @@ int	validate_continuous_ones(const char *line)
 		i++;
 	}
 	return (1);
-}
-
-int	check_trailing_newlines(int fd)
-{
-	char	*line;
-	int		empty_lines;
-
-	empty_lines = 0;
-	line = read_fd(fd);
-	while (line != NULL)
-	{
-		if (line[0] == '\0')
-			empty_lines++;
-		else
-			empty_lines = 0;
-		free(line);
-		line = read_fd(fd);
-	}
-	return (empty_lines <= 1);
 }

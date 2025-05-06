@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:31:53 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/06 11:37:22 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/06 12:39:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,22 @@ t_map	*init_map(t_mem **manager)
 	return (map);
 }
 
-void add_map_line(t_mem **m, char ***lines, char *trimmed, int *count)
+void	add_map_line(t_mem **m, char ***l, char *t, int *cnt)
 {
-    char **new_lines;
-    int i;
+	char	**new_l;
+	int		i;
 
-    new_lines = my_malloc(m, sizeof(char *) * (*count + 1));
-    if (*count > 0 && *lines)
-    {
-        for (i = 0; i < *count; i++)
-            new_lines[i] = (*lines)[i];
-        free(*lines);
-    }
-    new_lines[*count] = ft_strdup(trimmed);
-    (*count)++;
-    *lines = new_lines;
+	new_l = my_malloc(m, sizeof(char *) * (*cnt + 1));
+	i = 0;
+	while (i < *cnt)
+	{
+		new_l[i] = (*l)[i];
+		i++;
+	}
+	new_l[(*cnt)++] = ft_strdup(t);
+	if (*l)
+		free(*l);
+	*l = new_l;
 }
 
 int	free_values(char **values)
