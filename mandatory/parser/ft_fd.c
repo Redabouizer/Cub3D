@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 18:45:34 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/03/22 20:13:07 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/05 23:25:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int open_fd(const char *file)
+int	open_fd(const char *file)
 {
-    int fd;
-    
-    fd = open(file, O_RDONLY);
+	int	fd;
 
-    if (fd == -1)
-        return (ft_putendl_fd("Error\nTHIS FILE DOES NOT EXIST", 2), -1); 
-    return fd; 
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (ft_putendl_fd("Error\nTHIS FILE DOES NOT EXIST", 2), -1);
+	return (fd);
 }
 
-char *read_fd(int fd)
+char	*read_fd(int fd)
 {
-    char *str;
+	char	*str;
 
-    str = get_next_line(fd);
-    return str;
+	str = get_next_line(fd);
+	return (str);
 }
 
-int close_fd(int fd) {
-    if (close(fd) == -1)
-        return (ft_putendl_fd("Error\nPROBLEM ON CLOSING", 2), -1);
-    return 0;
+int	close_fd(int fd)
+{
+	if (close(fd) == -1)
+		return (ft_putendl_fd("Error\nPROBLEM ON CLOSING", 2), -1);
+	return (0);
 }

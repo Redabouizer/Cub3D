@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_helps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:39:19 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/03/23 06:42:57 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/05 23:26:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-
-// int ft_check()
-// {
-	
-// }
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
 // int fd_line(char *file)
 // {
