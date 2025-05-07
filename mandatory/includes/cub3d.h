@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/07 11:21:29 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 14:49:14 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <string.h>
 
+//********************Struct parser*********************************//
 typedef struct s_parser
 {
 	int		map_on;
@@ -74,6 +75,244 @@ typedef struct s_line_proc
 	t_map	*map;
 }				t_line_proc;
 
+
+//********************Struct Ray Casting*********************************//
+
+typedef struct s_wall_collision
+{
+	double	radius;
+	int		point_count;
+	double	angle;
+	double	check_x;
+	double	check_y;
+}	t_wall_collision;
+
+typedef struct s_slide_movement
+{
+	double	slide_x;
+	double	slide_y;
+	double	reduced_movement;
+	double	factor;
+	double	test_x;
+	double	test_y;
+}	t_slide_movement;
+
+typedef struct s_player
+{
+	double	position_x;
+	double	position_y;
+	double	direction_x;
+	double	direction_y;
+	double	plane_x;
+	double	plane_y;
+}	t_player;
+
+typedef struct s_ray
+{
+	double	camera_x;
+	double	ray_direction_x;
+	double	ray_direction_y;
+	int		map_x;
+	int		map_y;
+	double	delta_distance_x;
+	double	delta_distance_y;
+	double	side_distance_x;
+	double	side_distance_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+}	t_ray;
+
+typedef struct s_wall
+{
+	int		texture_number;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		texture_x;
+	int		texture_y;
+	double	wall_x;
+	double	distance_to_wall;
+}	t_wall;
+
+typedef struct s_event
+{
+	double	previous_direction_x;
+	double	previous_plane_x;
+	double	movement_speed;
+}	t_event;
+
+// typedef struct s_texture
+// {
+// 	void	*img;
+// 	char	*addr;
+// 	int		bits_per_pixel;
+// 	int		line_length;
+// 	int		endian;
+// }	t_texture;
+
+typedef struct s_map
+{
+	char			player_direction;
+	int				map_width;
+	int				map_height;
+	int				player_x;
+	int				player_y;
+	unsigned int	floor_color;
+	unsigned int ceiling_color;
+	char			**file_content;
+	char			**map;
+	char			*north_texture;
+	char			*south_texture;
+	char			*west_texture;
+	char			*east_texture;
+}	t_map;
+
+typedef struct s_game_data
+{
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				map_width;
+	int				map_height;
+	unsigned int	floor_color;
+	unsigned int ceiling_color;
+	void			*mlx;
+	void			*window;
+	void			*img;
+	char			*addr;
+	int				**level_map;
+	//texture
+	t_player		player;
+	t_ray		raycaster;
+}	t_game_data;
+
+typedef struct s_point
+{
+	double	x_p;
+	double	y_p;
+}	t_point;
+
+
+// typedef struct s_wall_col
+// {
+// 	double	radius;
+// 	int		num_points;
+// 	double	angle;
+// 	double	check_x;
+// 	double	check_y;
+// }	t_wall_col;
+
+// typedef struct s_slide
+// {
+// 	double	slide_x;
+// 	double	slide_y;
+// 	double	reduced_move;
+// 	double	factor;
+// 	double	test_x;
+// 	double	test_y;
+// }	t_slide;
+
+// typedef struct s_player
+// {
+// 	double	pos_x;
+// 	double	pos_y;
+// 	double	dir_x;
+// 	double	dir_y;
+// 	double	plane_x;
+// 	double	plane_y;
+// }	t_player;
+
+// typedef struct s_raycaster
+// {
+// 	double	camera_x;
+// 	double	ray_dir_x;
+// 	double	ray_dir_y;
+// 	int		map_x;
+// 	int		map_y;
+// 	double	delta_dist_x;
+// 	double	delta_dist_y;
+// 	double	side_dist_x;
+// 	double	side_dist_y;
+// 	int		step_x;
+// 	int		step_y;
+// 	int		side;
+// }	t_raycaster;
+
+// typedef struct s_wall
+// {
+// 	int		textnum;
+// 	int		line_height;
+// 	int		draw_start;
+// 	int		draw_end;
+// 	int		textx;
+// 	int		texty;
+// 	double	wall_x;
+// 	double	wall_dist;
+// }	t_wall;
+
+
+// typedef struct s_event
+// {
+// 	double	old_dirx;
+// 	double	old_planex;
+// 	double	move_speed;
+// }	t_event;
+
+// // typedef struct s_texture
+// // {
+// // 	void	*img;
+// // 	char	*addr;
+// // 	int		bits_per_pixel;
+// // 	int		line_length;
+// // 	int		endian;
+// // }	t_texture;
+
+// typedef struct s_map
+// {
+// 	char			player_dir;
+// 	int				m_width;
+// 	int				m_height;
+// 	int				player_x;
+// 	int				player_y;
+// 	unsigned int	f_color;
+// 	unsigned int	c_color;
+// 	char			**file_content;
+// 	char			**map;
+// 	char			*no_texture;
+// 	char			*so_texture;
+// 	char			*we_texture;
+// 	char			*ea_texture;
+// }	t_map;
+
+// typedef struct s_data
+// {
+// 	int				bits_per_pixel;
+// 	int				line_length;
+// 	int				endian;
+// 	int				map_width;
+// 	int				map_height;
+// 	unsigned int	f_color;
+// 	unsigned int	c_color;
+// 	void			*mlx;
+// 	void			*win;
+// 	void			*img;
+// 	char			*addr;
+// 	int				**world_map;
+// 	t_texture		textures[9];
+// 	t_player		player;
+// 	t_raycaster		raycaster;
+// }	t_data;
+
+// typedef struct s_point
+// {
+// 	double	new_x;
+// 	double	new_y;
+// }	t_point;
+
+//********************Prototype parser*********************************//
+
+
 int		open_fd(const char *file);
 char	*read_fd(int fd);
 int		close_fd(int fd);
@@ -125,5 +364,8 @@ void	pad_map_line(t_mem **m, t_map *map, char **lines, int i);
 void	process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
 
 void	print_map_data(t_map *map);
+
+//********************Prototype Ray Casting*********************************//
+
 
 #endif

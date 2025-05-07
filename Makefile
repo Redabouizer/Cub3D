@@ -3,14 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/05 22:32:24 by marvin           ###   ########.fr        #
+#    Updated: 2025/05/07 14:42:33 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = mandatory/get_next_line/get_next_line.c\
+NAME = cub3d
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+
+# Readline support for Ubuntu (install via: sudo apt install libreadline-dev)
+LDFLAGS = -lreadline
+INCLUDES = -I mandatory/includes
+
+SRCS = \
+	mandatory/get_next_line/get_next_line.c\
 	mandatory/get_next_line/get_next_line_utils.c\
 	mandatory/utils/ft_split.c\
 	mandatory/utils/ft_strlcpy.c\
@@ -39,28 +49,44 @@ SRCS = mandatory/get_next_line/get_next_line.c\
 	mandatory/parser/ft_player.c\
 	mandatory/parser/ft_process.c\
 	mandatory/parser/ft_utils.c\
+	mandatory/ray_casting/cleaner.c\
+	mandatory/ray_casting/collision_detection.c\
+	mandatory/ray_casting/door_interaction.c\
+	mandatory/ray_casting/events.c\
+	mandatory/ray_casting/game_r_casting_helper.c\
+	mandatory/ray_casting/game_ray-casting.c\
+	mandatory/ray_casting/player_rotate_and_texture.c\
+	mandatory/ray_casting/setup_data.c\
+	mandatory/ray_casting/setuping.c\
+	mandatory/ray_casting/texture.c\
+	mandatory/ray_casting/utils1.c\
 	mandatory/parser/test.c\
 	mandatory/main.c
 
-OBJS = $(SRCS:.c=.o)
+OBJ_DIR = objectFile
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
-CC = cc
-RM = rm -rf
-NAME = cub3d
+HEADER = mandatory/includes/cub3d.h mandatory/get_next_line/get_next_line.h mandatory/utils/utils.h
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) 
+	@echo "🔗 Linking $(NAME)"
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
-%.o: %.c mandatory/includes/cub3d.h  mandatory/get_next_line/get_next_line.h mandatory/utils/utils.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(dir $@)
+	@echo "🔨 Compiling $<"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
+	@echo "🧹 Cleaning object files..."
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME) 
+	@echo "🗑️  Removing $(NAME)..."
+	@rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
