@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:19:47 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/03/22 20:01:02 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:27:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
-#define OPEN_MAX 1024  
+# define OPEN_MAX 1024
 
 char	*ft_strdup(const char *s1);
 char	*get_next_line(int fd);

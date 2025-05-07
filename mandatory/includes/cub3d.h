@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/07 11:18:05 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 11:21:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,31 @@ typedef struct s_parser
 	int		empty_lines;
 	char	*first_line;
 	char	*last_line;
-}				t_parser;
+}					t_parser;
 
-typedef struct	s_line_content
+typedef struct s_line_content
 {
 	int		map_on;
 	int		map_end;
 	int		*ply_count;
 	char	*first_mp_l;
 	char	*last_mp_l;
-}				t_line_content;
+}					t_line_content;
 
-typedef struct	s_file_lines
+typedef struct s_file_lines
 {
 	int				fd;
 	int				*tab;
 	t_line_content	content;
-}				t_file_lines;
+}					t_file_lines;
 
-typedef struct	s_mem
+typedef struct s_mem
 {
 	void			*ptr;
 	struct s_mem	*next;
-}				t_mem;
+}					t_mem;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	char			player_direction;
 	int				map_width;
@@ -64,9 +64,9 @@ typedef struct	s_map
 	char			*south_texture;
 	char			*west_texture;
 	char			*east_texture;
-}	t_map;
+}						t_map;
 
-typedef struct	s_line_proc
+typedef struct s_line_proc
 {
 	int		*map_started;
 	char	***map_lines;
