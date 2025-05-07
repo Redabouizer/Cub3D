@@ -88,3 +88,10 @@ int handle_key_press(int keycode, t_game_data *data)
     refresh_image(data);
     return (0);
 }
+
+int close_window(t_game_data *data)
+{
+    free_all(data, NULL, 1);
+    exit(0);
+    return (0);
+}

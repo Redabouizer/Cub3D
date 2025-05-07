@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/07 19:07:54 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 20:31:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,14 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+#define PLAYER_ROTATION_SPEED 0.1
+#define PLAYER_MOVE_SPEED 0.1
 #define SCREEN_WIDTH 1024
+#define MAX_BUFFER_SIZE 20
+#define TEXTURE_HEIGHT 64
+#define COLLISION_MARGIN 0.2
 #define SCREEN_HEIGHT 512
 #define TEXTURE_SIZE 64
-#define TEXTURE_HEIGHT 64
-#define PLAYER_MOVE_SPEED 0.1
-#define PLAYER_ROTATION_SPEED 0.1
-#define COLLISION_MARGIN 0.2
-#define MAX_BUFFER_SIZE 20
-
-// # define WINDOW_WIDTH 1024
-// # define WINDOW_HEIGHT 512
-// # define TEXTURE_WIDTH 64
-// # define TEXTURE_HEIGHT 64
-// # define MOVE_SPEED 0.1
-// # define ROTATION_SPEED 0.1
-// # define COLLISION_BUFFER 0.2
-// # define BUFFER_SIZE 20
 
 //********************Struct parser*********************************//
 typedef struct s_parser
@@ -165,14 +156,14 @@ typedef struct s_event
 	double	movement_speed;
 }	t_event;
 
-// typedef struct s_texture
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// }	t_texture;
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_texture;
 
 typedef struct s_game_data
 {
@@ -188,7 +179,7 @@ typedef struct s_game_data
 	void			*img;
 	char			*addr;
 	int				**level_map;
-	//texture
+	// 	t_texture		textures[9];
 	t_player		player;
 	t_ray		raycaster;
 }	t_game_data;
@@ -198,123 +189,6 @@ typedef struct s_point
 	double	x_p;
 	double	y_p;
 }	t_point;
-
-
-// typedef struct s_wall_col
-// {
-// 	double	radius;
-// 	int		num_points;
-// 	double	angle;
-// 	double	check_x;
-// 	double	check_y;
-// }	t_wall_col;
-
-// typedef struct s_slide
-// {
-// 	double	slide_x;
-// 	double	slide_y;
-// 	double	reduced_move;
-// 	double	factor;
-// 	double	test_x;
-// 	double	test_y;
-// }	t_slide;
-
-// typedef struct s_player
-// {
-// 	double	pos_x;
-// 	double	pos_y;
-// 	double	dir_x;
-// 	double	dir_y;
-// 	double	plane_x;
-// 	double	plane_y;
-// }	t_player;
-
-// typedef struct s_raycaster
-// {
-// 	double	camera_x;
-// 	double	ray_dir_x;
-// 	double	ray_dir_y;
-// 	int		map_x;
-// 	int		map_y;
-// 	double	delta_dist_x;
-// 	double	delta_dist_y;
-// 	double	side_dist_x;
-// 	double	side_dist_y;
-// 	int		step_x;
-// 	int		step_y;
-// 	int		side;
-// }	t_raycaster;
-
-// typedef struct s_wall
-// {
-// 	int		textnum;
-// 	int		line_height;
-// 	int		draw_start;
-// 	int		draw_end;
-// 	int		textx;
-// 	int		texty;
-// 	double	wall_x;
-// 	double	wall_dist;
-// }	t_wall;
-
-
-// typedef struct s_event
-// {
-// 	double	old_dirx;
-// 	double	old_planex;
-// 	double	move_speed;
-// }	t_event;
-
-// // typedef struct s_texture
-// // {
-// // 	void	*img;
-// // 	char	*addr;
-// // 	int		bits_per_pixel;
-// // 	int		line_length;
-// // 	int		endian;
-// // }	t_texture;
-
-// typedef struct s_map
-// {
-// 	char			player_dir;
-// 	int				m_width;
-// 	int				m_height;
-// 	int				player_x;
-// 	int				player_y;
-// 	unsigned int	f_color;
-// 	unsigned int	c_color;
-// 	char			**file_content;
-// 	char			**map;
-// 	char			*no_texture;
-// 	char			*so_texture;
-// 	char			*we_texture;
-// 	char			*ea_texture;
-// }	t_map;
-
-// typedef struct s_data
-// {
-// 	int				bits_per_pixel;
-// 	int				line_length;
-// 	int				endian;
-// 	int				map_width;
-// 	int				map_height;
-// 	unsigned int	f_color;
-// 	unsigned int	c_color;
-// 	void			*mlx;
-// 	void			*win;
-// 	void			*img;
-// 	char			*addr;
-// 	int				**world_map;
-// 	t_texture		textures[9];
-// 	t_player		player;
-// 	t_raycaster		raycaster;
-// }	t_data;
-
-// typedef struct s_point
-// {
-// 	double	new_x;
-// 	double	new_y;
-// }	t_point;
 
 //********************Prototype parser*********************************//
 
@@ -345,7 +219,6 @@ int		check_map(const char *str);
 int		check_ext(char *file);
 int		validate_continuous_ones(const char *line);
 int		check_player_count(char *trimmed, int *ply_count);
-int		check_trailing_newlines(int fd);
 
 /*   ft_node.c                                          :+:      :+:    :+:   */
 void	cleanup_map_lines(char *first_map_line, char *last_map_line);
@@ -395,8 +268,7 @@ int handle_mouse_enter(t_game_data *data);
 int handle_mouse_leave(t_game_data *data);
 void	refresh_image(t_game_data *data);
 void adjust_fov(t_game_data *data, int delta_x);
-int handle_mouse_move(int x, int y, t_game_data *data);
-int handle_key_press(int keycode, t_game_data *data);
+int close_window(t_game_data *data);
 void calculate_wall_distance(t_ray *ray_info, t_wall *wall, t_game_data *data);
 void compute_line_height(t_wall *wall);
 void verify_door_hit(t_game_data *data, t_ray *ray_info, int *hit, int *is_door);
@@ -417,11 +289,9 @@ void generate_world_map(t_game_data *data, t_map *map);
 void put_pixel_to_mlx(t_game_data *data, int x, int y, int color);
 void compute_wall_x(t_ray *ray_info, t_wall *wall, t_game_data *data);
 void render_floor_and_ceiling(t_game_data *data);
-void setup_player_direction(t_game_data *data, t_map *map);
 void release_textures(char **file_paths);
 void free_map_resources(t_map *map);
 void	display_destruction(t_game_data *data);
 void	free_all(t_game_data *data, t_map *map, int flag);
-
 
 #endif

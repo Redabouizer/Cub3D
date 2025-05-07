@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 19:36:25 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 20:18:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	validate_map(t_mem **mm, const char *file)
 	mlx_hook(data.window, 6, 1L << 6, handle_mouse_move, &data);
 	mlx_hook(data.window, 7, 1L << 4, handle_mouse_enter, &data);
 	mlx_hook(data.window, 8, 1L << 5, handle_mouse_leave, &data);
+	mlx_hook(data.window, 17, 1L << 1, close_window, &data);
 	render_scene(&data);
 	mlx_loop(data.mlx);
 	free_all(&data, map, 1);

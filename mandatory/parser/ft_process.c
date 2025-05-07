@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 19:41:33 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 20:07:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,5 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
 		printf("Error: Invalid line in map section\n");
 		return (free(trimmed), 0);
 	}
-        
     return (1); // Success
 }
