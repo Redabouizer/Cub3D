@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
 void	turn_left(t_game_data *game_data, t_event *event)
 {
@@ -26,15 +26,6 @@ void	turn_right(t_game_data *game_data, t_event *event)
 		game_data->player.plane_y * sin(-PLAYER_ROTATION_SPEED);
 	game_data->player.plane_y = event->previous_plane_x * sin(-PLAYER_ROTATION_SPEED) + 
 		game_data->player.plane_y * cos(-PLAYER_ROTATION_SPEED);
-}
-
-void	refresh_image(t_game_data *game_data)
-{
-	mlx_destroy_image(game_data->mlx, game_data->img);
-	game_data->img = mlx_p_image(game_data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game_data->addr = mlx_get_game_data_addr(game_data->img, &game_data->bits_per_pixel, 
-		&game_data->line_length, &game_data->endian);
-	render_scene(game_data);
 }
 
 // void	release_texture_resources(t_map *map)

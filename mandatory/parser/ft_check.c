@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/06 16:58:09 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 19:36:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,30 @@ int	validate_state(char *first_map_line, char *last_map_line)
 
 int	validate_map(t_mem **mm, const char *file)
 {
-	t_map	*map;
-
+	t_game_data		data;
+	t_map		*map;
+	t_ray	raycaster;
+	
 	(void)mm;
+	raycaster = (t_ray){0};
 	if (process_file(file) != 0)
 		return (-1);
 	map = parse_map_file(mm, file);
-	print_map_data(map);
+	if (!map)
+		return (-1);
+	// here you should check the function that can read from the file or not
+	// Protection issue
+	setup_data(&data, map);
+	data.raycaster = raycaster;
+	generate_world_map(&data, map);
+	// load_texture(&data, &map);
+	mlx_hook(data.window, 2, 1L << 0, handle_key_press, &data);
+	mlx_hook(data.window, 6, 1L << 6, handle_mouse_move, &data);
+	mlx_hook(data.window, 7, 1L << 4, handle_mouse_enter, &data);
+	mlx_hook(data.window, 8, 1L << 5, handle_mouse_leave, &data);
+	render_scene(&data);
+	mlx_loop(data.mlx);
+	free_all(&data, map, 1);
+	// print_map_data(map);
 	return (0);
 }

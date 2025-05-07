@@ -1,11 +1,11 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
-int handle_mouse_enter(t_game_data *data)
+int handle_mouse_enter(t_game_data *data __attribute__ ((unused)))
 {
     return (0);
 }
 
-int handle_mouse_leave(t_game_data *data)
+int handle_mouse_leave(t_game_data *data __attribute__ ((unused)))
 {
     return (0);
 }
@@ -13,12 +13,12 @@ void	refresh_image(t_game_data *data)
 {
 	mlx_destroy_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->addr = mlx_get_game_data_addr(data->img, &data->bits_per_pixel, \
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, \
 	&data->line_length, &data->endian);
 	render_scene(data);
 }
 
-static void adjust_fov(t_game_data *data, int delta_x)
+void adjust_fov(t_game_data *data, int delta_x)
 {
     double angle;
     double previous_dir_x;
@@ -63,11 +63,12 @@ int handle_key_press(int keycode, t_game_data *data)
 {
     t_event event;
 
-    if (keycode == 53)
+    if (keycode == 53 || keycode == 65307)
     {
         free_all(data, NULL, 1);
         exit(0);
     }
+
     if (keycode == 49)
         interact_with_door(data);
     

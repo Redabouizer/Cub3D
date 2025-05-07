@@ -3,21 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/07 14:42:33 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/07 19:04:30 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g
 
-# Readline support for Ubuntu (install via: sudo apt install libreadline-dev)
+# Linux MLX configuration (updated paths)
+MLX_DIR = ./mlx_linux
+MLX_LINUX = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+
+# Readline support
 LDFLAGS = -lreadline
-INCLUDES = -I mandatory/includes
+INCLUDES = -I$(MLX_DIR) -I mandatory/includes
 
 SRCS = \
 	mandatory/get_next_line/get_next_line.c\
@@ -49,6 +53,9 @@ SRCS = \
 	mandatory/parser/ft_player.c\
 	mandatory/parser/ft_process.c\
 	mandatory/parser/ft_utils.c\
+	mandatory/parser/ft_texture.c\
+	mandatory/parser/test.c\
+	mandatory/main.c\
 	mandatory/ray_casting/cleaner.c\
 	mandatory/ray_casting/collision_detection.c\
 	mandatory/ray_casting/door_interaction.c\
@@ -59,11 +66,10 @@ SRCS = \
 	mandatory/ray_casting/setup_data.c\
 	mandatory/ray_casting/setuping.c\
 	mandatory/ray_casting/texture.c\
-	mandatory/ray_casting/utils1.c\
-	mandatory/parser/test.c\
-	mandatory/main.c
+	mandatory/ray_casting/utils1.c
 
-OBJ_DIR = objectFile
+
+OBJ_DIR = objects
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 HEADER = mandatory/includes/cub3d.h mandatory/get_next_line/get_next_line.h mandatory/utils/utils.h
@@ -72,7 +78,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "🔗 Linking $(NAME)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LINUX) $(LDFLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(dir $@)

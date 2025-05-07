@@ -49,7 +49,7 @@ void	finalize_map(t_mem **mn, t_map *map, char **map_lines, int map_l_count)
 	free(map_lines);
 }
 
-void	process_map_lines(t_mem **manager, int fd, t_map *map)
+int	process_map_lines(t_mem **manager, int fd, t_map *map)
 {
 	char		*line;
 	t_line_proc	proc;
@@ -66,11 +66,13 @@ void	process_map_lines(t_mem **manager, int fd, t_map *map)
 	proc.map_line_count = &map_line_count;
 	line = read_fd(fd);
 	while (line != NULL)
-	{
-		process_line(manager, line, &proc);
+	{	
+		if (!process_line(manager, line, &proc))
+			return (0);
 		line = read_fd(fd);
 	}
 	finalize_map(manager, map, map_lines, map_line_count);
+	return (1);
 }
 
 t_map	*parse_map_file(t_mem **manager, const char *file)
@@ -84,7 +86,8 @@ t_map	*parse_map_file(t_mem **manager, const char *file)
 	fd = open_fd(file);
 	if (fd < 0)
 		return (NULL);
-	process_map_lines(manager, fd, map);
+	if (!process_map_lines(manager, fd, map))
+		return (NULL);
 	if (close_fd(fd) < 0)
 		return (NULL);
 	return (map);

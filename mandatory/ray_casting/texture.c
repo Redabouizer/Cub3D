@@ -1,4 +1,4 @@
-// #include "cube3d.h"
+// #include "../includes/cub3d.h"
 
 // unsigned int retrieve_texture_color(t_texture *texture, int y, int x)
 // {

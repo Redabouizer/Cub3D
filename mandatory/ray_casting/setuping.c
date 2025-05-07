@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
 //init_game_data
 //init data
@@ -32,7 +32,7 @@ void setup_data(t_game_data *data, t_map *map)
 
 //init world map
 
-static void setup_world_map(t_game_data *data, t_map *map)
+void setup_world_map(t_game_data *data, t_map *map)
 {
     int row;
     int col;
@@ -61,7 +61,7 @@ static void setup_world_map(t_game_data *data, t_map *map)
     }
 }
 //init plan dir
-static void setup_player_direction(t_game_data *data, t_map *map)
+void setup_player_direction(t_game_data *data, t_map *map)
 {
     if (map->player_direction == 'N')
     {
@@ -93,7 +93,7 @@ static void setup_player_direction(t_game_data *data, t_map *map)
 	}
 }
 //add doors to map
-static void insert_doors_into_map(t_game_data *data)
+void insert_doors_into_map(t_game_data *data)
 {
     int row;
     int col;

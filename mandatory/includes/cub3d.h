@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/07 14:49:14 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:07:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,32 @@
 # define CUB3D_H
 
 # include "../utils/utils.h"
+# include "../../mlx_linux/mlx.h"
+# include <math.h>
 # include <stdio.h>
-# include <fcntl.h>
+# include <stdlib.h>
+# include <time.h>
 # include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
+
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 512
+#define TEXTURE_SIZE 64
+#define TEXTURE_HEIGHT 64
+#define PLAYER_MOVE_SPEED 0.1
+#define PLAYER_ROTATION_SPEED 0.1
+#define COLLISION_MARGIN 0.2
+#define MAX_BUFFER_SIZE 20
+
+// # define WINDOW_WIDTH 1024
+// # define WINDOW_HEIGHT 512
+// # define TEXTURE_WIDTH 64
+// # define TEXTURE_HEIGHT 64
+// # define MOVE_SPEED 0.1
+// # define ROTATION_SPEED 0.1
+// # define COLLISION_BUFFER 0.2
+// # define BUFFER_SIZE 20
 
 //********************Struct parser*********************************//
 typedef struct s_parser
@@ -150,23 +173,6 @@ typedef struct s_event
 // 	int		line_length;
 // 	int		endian;
 // }	t_texture;
-
-typedef struct s_map
-{
-	char			player_direction;
-	int				map_width;
-	int				map_height;
-	int				player_x;
-	int				player_y;
-	unsigned int	floor_color;
-	unsigned int ceiling_color;
-	char			**file_content;
-	char			**map;
-	char			*north_texture;
-	char			*south_texture;
-	char			*west_texture;
-	char			*east_texture;
-}	t_map;
 
 typedef struct s_game_data
 {
@@ -344,15 +350,14 @@ int		check_trailing_newlines(int fd);
 /*   ft_node.c                                          :+:      :+:    :+:   */
 void	cleanup_map_lines(char *first_map_line, char *last_map_line);
 int		free_values(char **values);
-void	add_map_line(t_mem **m, char ***lines, char *trimmed, int *count);
+int add_map_line(t_mem **manager, char ***lines, char *trimmed, int *count);
 
 /*   ft_map.c                                           :+:      :+:    :+:   */
 t_map	*parse_map_file(t_mem **manager, const char *file);
 
 /*   ft_process.c                                       :+:      :+:    :+:   */
 int		process_file(const char *file);
-void	process_line(t_mem **manager, char *line, t_line_proc *proc);
-
+int		process_line(t_mem **manager, char *line, t_line_proc *proc);
 /*   ft_color.c                                         :+:      :+:    :+:   */
 int		get_color(const char *color, unsigned int *result);
 int		process_meta_line(char *trimmed, int *tab);
@@ -361,11 +366,62 @@ int		process_meta_line(char *trimmed, int *tab);
 void	pad_map_line(t_mem **m, t_map *map, char **lines, int i);
 
 /*   ft_data.c                                          :+:      :+:    :+:   */
-void	process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
+int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
+int		set_texture(char **texture, char *line);
 
 void	print_map_data(t_map *map);
 
 //********************Prototype Ray Casting*********************************//
+int	is_door_accessible(t_game_data *game_data, int x_coord, int y_coord);
+
+void	initialize_collision_ray(t_ray *collision_ray, double start_x, double start_y,
+								double direction_x, double direction_y);
+int	detect_collision_side(t_game_data *game_data, double target_x, double target_y, double *collision_distance);
+
+int	is_wall_colliding(t_game_data *game_data, double target_x, double target_y);
+
+void	process_movement(t_game_data *game_data, double move_x, double move_y, double speed);
+void	interact_with_door(t_game_data *game_data);
+void	move_forward(t_game_data *game_data, t_event event);
+void	move_backward(t_game_data *game_data, t_event event);
+void	move_rightward(t_game_data *game_data, t_event event);
+void	move_leftward(t_game_data *game_data, t_event event);
+int handle_mouse_enter(t_game_data *data);
+int handle_mouse_leave(t_game_data *data);
+void	refresh_image(t_game_data *data);
+int handle_mouse_move(int x, int y, t_game_data *data);
+int handle_key_press(int keycode, t_game_data *data);
+int handle_mouse_enter(t_game_data *data);
+int handle_mouse_leave(t_game_data *data);
+void	refresh_image(t_game_data *data);
+void adjust_fov(t_game_data *data, int delta_x);
+int handle_mouse_move(int x, int y, t_game_data *data);
+int handle_key_press(int keycode, t_game_data *data);
+void calculate_wall_distance(t_ray *ray_info, t_wall *wall, t_game_data *data);
+void compute_line_height(t_wall *wall);
+void verify_door_hit(t_game_data *data, t_ray *ray_info, int *hit, int *is_door);
+void process_wall_hit(t_game_data *data, t_ray *ray_info, int *hit, int *is_door);
+void compute_ray_data(t_game_data *data, t_ray *ray_info, int x);
+void compute_steps(t_game_data *data, t_ray *ray_info);
+void execute_dda(t_game_data *data, t_ray *ray_info);
+int render_scene(t_game_data *data);
+void	turn_left(t_game_data *game_data, t_event *event);
+void	turn_right(t_game_data *game_data, t_event *event);
+void	refresh_image(t_game_data *game_data);
+
+void setup_data(t_game_data *data, t_map *map);
+void setup_world_map(t_game_data *data, t_map *map);
+void setup_player_direction(t_game_data *data, t_map *map);
+void insert_doors_into_map(t_game_data *data);
+void generate_world_map(t_game_data *data, t_map *map);
+void put_pixel_to_mlx(t_game_data *data, int x, int y, int color);
+void compute_wall_x(t_ray *ray_info, t_wall *wall, t_game_data *data);
+void render_floor_and_ceiling(t_game_data *data);
+void setup_player_direction(t_game_data *data, t_map *map);
+void release_textures(char **file_paths);
+void free_map_resources(t_map *map);
+void	display_destruction(t_game_data *data);
+void	free_all(t_game_data *data, t_map *map, int flag);
 
 
 #endif

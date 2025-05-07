@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
 // void render_texture(t_ray *ray_info, int x, t_wall *wall, t_game_data *data)
 // {
@@ -29,7 +29,7 @@
 //     }
 // }
 
-void calculate_wall_distance(t_ray *ray_info, t_wall *wall, t_game_data *data)
+void calculate_wall_distance(t_ray *ray_info, t_wall *wall, t_game_data *data __attribute__ ((unused)))
 {
     if (ray_info->side == 0)
         wall->distance_to_wall = (ray_info->side_distance_x - ray_info->delta_distance_x);
@@ -50,7 +50,7 @@ void compute_line_height(t_wall *wall)
         wall->draw_end = SCREEN_HEIGHT - 1;
 }
 
-static void verify_door_hit(t_game_data *data, t_ray *ray_info, int *hit, int *is_door)
+void verify_door_hit(t_game_data *data, t_ray *ray_info, int *hit, int *is_door)
 {
     if (data->level_map[ray_info->map_y][ray_info->map_x] == 1)
         *hit = 1;

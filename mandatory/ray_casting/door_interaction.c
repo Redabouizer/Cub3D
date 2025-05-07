@@ -1,12 +1,12 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
 void	interact_with_door(t_game_data *game_data)
 {
-	int		door_x;
-	int		door_y;
+	// int		door_x;
+	// int		door_y;
 	double	direct_x;
 	double	direct_y;
-	double	door_distance;
+	// double	door_distance;
 	
 	// Cast a ray in the player's view direction to locate a door
 	direct_x = game_data->player.direction_x;
@@ -64,7 +64,7 @@ void	move_forward(t_game_data *game_data, t_event event)
 
 void	move_backward(t_game_data *game_data, t_event event)
 {
-	process_movement(game_data, -game_data->player.dir_x, -game_data->player.direction_y, event.movement_speed);
+	process_movement(game_data, -game_data->player.direction_x, -game_data->player.direction_y, event.movement_speed);
 }
 
 void	move_rightward(t_game_data *game_data, t_event event)

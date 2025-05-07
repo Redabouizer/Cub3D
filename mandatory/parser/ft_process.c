@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/06 16:59:11 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 19:41:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,39 @@ int	process_file(const char *file)
 	return (0);
 }
 
-void	process_line(t_mem **manager, char *line, t_line_proc *proc)
+int process_line(t_mem **manager, char *line, t_line_proc *proc)
 {
-	char	*trimmed;
+    char *trimmed;
 
-	trimmed = ft_strtrim(line, "\t\n\r");
-	free(line);
-	if (!trimmed)
-		return ;
-	if (trimmed[0] == '\0' && !(*proc->map_started))
+    if (!line)
+        return (1);
+		
+    trimmed = ft_strtrim(line, "\t\n\r");
+    free(line);
+	
+    if (!trimmed)
+        return (1);
+    if (trimmed[0] == '\0' && !(*proc->map_started))
+        return (free(trimmed), 1);
+    if (!(*proc->map_started))
+    {
+        if (!process_metadata_line(manager, trimmed, proc))
+            return (0);
+    }
+    else if (check_map(trimmed))
+    {
+        if (!add_map_line(manager, proc->map_lines, trimmed, proc->map_line_count))
+        {
+
+            free(trimmed);
+            return (0);
+        }
+    }
+    else
 	{
-		free(trimmed);
-		return ;
+		printf("Error: Invalid line in map section\n");
+		return (free(trimmed), 0);
 	}
-	if (!(*proc->map_started))
-		process_metadata_line(manager, trimmed, proc);
-	else if (check_map(trimmed))
-		add_map_line(manager, proc->map_lines, trimmed, proc->map_line_count);
-	free(trimmed);
+        
+    return (1); // Success
 }

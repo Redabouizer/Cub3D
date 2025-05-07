@@ -1,6 +1,6 @@
-# include "cube3d.h"
+#include "../includes/cub3d.h"
 
-void	free_array_text(t_game_data *data)
+void	free_array_text(t_game_data *data __attribute__ ((unused)))
 {
 	int	i;
 

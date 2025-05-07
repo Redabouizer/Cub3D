@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
 void compute_wall_x(t_ray *ray_info, t_wall *wall, t_game_data *data)
 {
@@ -13,8 +13,8 @@ void render_floor_and_ceiling(t_game_data *data)
 {
     size_t row;
     size_t col;
-    unsigned int ceiling_color;
-    unsigned int floor_color;
+    // unsigned int ceiling_color;
+    // unsigned int floor_color;
 
     row = 0;
     while (row < SCREEN_HEIGHT / 2)
@@ -27,24 +27,6 @@ void render_floor_and_ceiling(t_game_data *data)
             col++;
         }
         row++;
-    }
-}
-
-void setup_player_direction(t_game_data *data, t_map *map)
-{
-    if (map->player_direction == 'E')
-    {
-        data->player.direction_x = 1;
-        data->player.direction_y = 0;
-        data->player.plane_x = 0;
-        data->player.plane_y = -0.66;
-    }
-    else if (map->player_direction == 'W')
-    {
-        data->player.direction_x = -1;
-        data->player.direction_y = 0;
-        data->player.plane_x = 0;
-        data->player.plane_y = 0.66;
     }
 }
 

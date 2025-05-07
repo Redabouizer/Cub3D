@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
 int	is_door_accessible(t_game_data *game_data, int x_coord, int y_coord)
 {

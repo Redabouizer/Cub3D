@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../includes/cub3d.h"
 
 void compute_ray_data(t_game_data *data, t_ray *ray_info, int x)
 {
