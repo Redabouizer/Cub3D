@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/05 22:39:07 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:59:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	process_initial_line(char *trim, int *tab, int *map_on, char **fst_map_l)
+int	proc_init(char *trim, int *tab, int *map_on, char **fst_map_l)
 {
 	if (process_meta_line(trim, tab))
 		return (1);
@@ -27,8 +27,7 @@ int	process_initial_line(char *trim, int *tab, int *map_on, char **fst_map_l)
 	return (0);
 }
 
-int	process_line_content(char **line, int *map_on, int *map_ended, int *tab,
-							int *ply_count, char **first_map_line, char **last_mp_l)
+int	process_line_content(char **line, t_line_content *cnt, int *tab)
 {
 	char	*trim;
 
@@ -36,56 +35,55 @@ int	process_line_content(char **line, int *map_on, int *map_ended, int *tab,
 	free(*line);
 	if (!trim || trim[0] == '\0')
 	{
-		if (*map_on)
-			*map_ended = 1;
+		if (cnt->map_on)
+			cnt->map_end = 1;
 		free(trim);
 		return (1);
 	}
-	if (!*map_on && !process_initial_line(trim, tab, map_on, first_map_line))
+	if (!cnt->map_on && !proc_init(trim, tab, &cnt->map_on, &cnt->first_mp_l))
 		return (printf("Error: Invalid line\n"), free(trim), 0);
-	if (*map_on && !validate_map_section_wrapper(trim, map_ended, last_mp_l))
+	if (cnt->map_on && !validate_wrapper(trim, &cnt->map_end, &cnt->last_mp_l))
 		return (free(trim), 0);
-	if (*map_on)
-		check_player_count(trim, ply_count);
+	if (cnt->map_on)
+		check_player_count(trim, cnt->ply_count);
 	free(trim);
 	return (1);
 }
 
-int	process_file_lines(int fd, int *tab, int *ply_count)
+int	process_file_lines(t_file_lines *fl)
 {
 	char	*line;
-	int		map_on;
-	int		map_ended;
-	char	*first_map_line;
-	char	*last_map_line;
 
-	map_on = 0;
-	map_ended = 0;
-	first_map_line = NULL;
-	last_map_line = NULL;
-	line = read_fd(fd);
+	fl->content.map_on = 0;
+	fl->content.map_end = 0;
+	fl->content.first_mp_l = NULL;
+	fl->content.last_mp_l = NULL;
+	line = read_fd(fl->fd);
 	while (line != NULL)
 	{
-		if (!process_line_content(&line, &map_on, &map_ended, tab, ply_count,
-				&first_map_line, &last_map_line))
+		if (!process_line_content(&line, &fl->content, fl->tab))
 			return (0);
-		line = read_fd(fd);
+		line = read_fd(fl->fd);
 	}
-	return (validate_final_map_state(first_map_line, last_map_line));
+	return (validate_state(fl->content.first_mp_l, fl->content.last_mp_l));
 }
 
 int	process_file(const char *file)
 {
-	int	tab[6];
-	int	ply_count;
-	int	fd;
+	int				tab[6];
+	int				ply_count;
+	int				fd;
+	t_file_lines	fl;
 
 	ft_bzero(tab, sizeof(tab));
 	ply_count = 0;
 	fd = open_fd(file);
 	if (fd < 0)
 		return (-1);
-	if (!process_file_lines(fd, tab, &ply_count))
+	fl.fd = fd;
+	fl.tab = tab;
+	fl.content.ply_count = &ply_count;
+	if (!process_file_lines(&fl))
 		return (close_fd(fd), -1);
 	if (close_fd(fd) < 0)
 		return (-1);
@@ -95,8 +93,7 @@ int	process_file(const char *file)
 	return (0);
 }
 
-void	process_line(t_mem **manager, t_map *map, char *line,
-						int *map_started, char ***map_lines, int *map_line_count)
+void	process_line(t_mem **manager, char *line, t_line_proc *proc)
 {
 	char	*trimmed;
 
@@ -104,14 +101,14 @@ void	process_line(t_mem **manager, t_map *map, char *line,
 	free(line);
 	if (!trimmed)
 		return ;
-	if (trimmed[0] == '\0' && !(*map_started))
+	if (trimmed[0] == '\0' && !(*proc->map_started))
 	{
 		free(trimmed);
 		return ;
 	}
-	if (!(*map_started))
-		process_metadata_line(manager, map, trimmed, map_started, map_lines, map_line_count);
+	if (!(*proc->map_started))
+		process_metadata_line(manager, trimmed, proc);
 	else if (check_map(trimmed))
-		add_map_line(manager, map_lines, trimmed, map_line_count);
+		add_map_line(manager, proc->map_lines, trimmed, proc->map_line_count);
 	free(trimmed);
 }

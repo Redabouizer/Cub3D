@@ -49,20 +49,25 @@ void	finalize_map(t_mem **mn, t_map *map, char **map_lines, int map_l_count)
 	free(map_lines);
 }
 
-static void	process_map_lines(t_mem **manager, int fd, t_map *map)
+void	process_map_lines(t_mem **manager, int fd, t_map *map)
 {
-	char	*line;
-	int		map_started;
-	char	**map_lines;
-	int		map_line_count;
+	char		*line;
+	t_line_proc	proc;
+	char		**map_lines;
+	int			map_started;
+	int			map_line_count;
 
-	map_started = 0;
 	map_lines = NULL;
+	map_started = 0;
 	map_line_count = 0;
+	proc.map = map;
+	proc.map_started = &map_started;
+	proc.map_lines = &map_lines;
+	proc.map_line_count = &map_line_count;
 	line = read_fd(fd);
 	while (line != NULL)
 	{
-		process_line(manager, map, line, &map_started, &map_lines, &map_line_count);
+		process_line(manager, line, &proc);
 		line = read_fd(fd);
 	}
 	finalize_map(manager, map, map_lines, map_line_count);

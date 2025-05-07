@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/06 11:42:41 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 11:18:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,38 @@
 # include <fcntl.h>
 # include <string.h>
 
-typedef struct s_parser {
+typedef struct s_parser
+{
 	int		map_on;
 	int		map_ended;
 	int		empty_lines;
 	char	*first_line;
 	char	*last_line;
-}	t_parser;
+}				t_parser;
 
-typedef struct s_mem
+typedef struct	s_line_content
+{
+	int		map_on;
+	int		map_end;
+	int		*ply_count;
+	char	*first_mp_l;
+	char	*last_mp_l;
+}				t_line_content;
+
+typedef struct	s_file_lines
+{
+	int				fd;
+	int				*tab;
+	t_line_content	content;
+}				t_file_lines;
+
+typedef struct	s_mem
 {
 	void			*ptr;
 	struct s_mem	*next;
 }				t_mem;
 
-typedef struct s_map
+typedef struct	s_map
 {
 	char			player_direction;
 	int				map_width;
@@ -48,6 +65,14 @@ typedef struct s_map
 	char			*west_texture;
 	char			*east_texture;
 }	t_map;
+
+typedef struct	s_line_proc
+{
+	int		*map_started;
+	char	***map_lines;
+	int		*map_line_count;
+	t_map	*map;
+}				t_line_proc;
 
 int		open_fd(const char *file);
 char	*read_fd(int fd);
@@ -68,9 +93,8 @@ char	*ft_strjoin_mm(t_mem **manager, char const *s1, char const *s2);
 char	**ft_split_mm(t_mem **manager, char const *s, char c);
 
 /*   ft_check.c                                         :+:      :+:    :+:   */
-int		validate_map_section_wrapper(char *trim, int *mp_end, char **lst_mp_l);
-int		validate_final_map_state(char *first_map_line, char *last_map_line);
-
+int		validate_wrapper(char *trim, int *mp_end, char **lst_mp_l);
+int		validate_state(char *first_map_line, char *last_map_line);
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 int		check_map(const char *str);
 int		check_ext(char *file);
@@ -88,8 +112,7 @@ t_map	*parse_map_file(t_mem **manager, const char *file);
 
 /*   ft_process.c                                       :+:      :+:    :+:   */
 int		process_file(const char *file);
-void	process_line(t_mem **manager, t_map *map, char *line,
-			int *map_started, char ***map_lines, int *map_line_count);
+void	process_line(t_mem **manager, char *line, t_line_proc *proc);
 
 /*   ft_color.c                                         :+:      :+:    :+:   */
 int		get_color(const char *color, unsigned int *result);
@@ -99,9 +122,7 @@ int		process_meta_line(char *trimmed, int *tab);
 void	pad_map_line(t_mem **m, t_map *map, char **lines, int i);
 
 /*   ft_data.c                                          :+:      :+:    :+:   */
-
-void	process_metadata_line(t_mem **manager, t_map *map, char *trimmed,
-			int *map_started, char ***map_lines, int *map_line_count);
+void	process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
 
 void	print_map_data(t_map *map);
 

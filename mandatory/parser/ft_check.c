@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/06 12:41:33 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:58:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	validate_map_section(char *trimmed, int *map_ended, char **last_line)
 	return (1);
 }
 
-int	validate_map_section_wrapper(char *trim, int *mp_end, char **lst_mp_l)
+int	validate_wrapper(char *trim, int *mp_end, char **lst_mp_l)
 {
 	if (*mp_end)
 		return (printf("Error: Map content after empty line\n"), 0);
 	return (validate_map_section(trim, mp_end, lst_mp_l));
 }
 
-int	validate_final_map_state(char *first_map_line, char *last_map_line)
+int	validate_state(char *first_map_line, char *last_map_line)
 {
 	if (last_map_line && !validate_continuous_ones(last_map_line))
 		return (printf("Error: Last line invalid\n"), 0);

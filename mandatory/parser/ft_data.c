@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 23:08:17 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/05 23:08:17 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 11:10:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ void	process_metadata(t_map *map, char *trimmed)
 		get_color(trimmed + 2, &map->ceiling_color);
 }
 
-void	process_metadata_line(t_mem **manager, t_map *map, char *trimmed,
-								int *map_started, char ***map_lines, int *map_line_count)
+void	process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc)
 {
-	process_metadata(map, trimmed);
-	if (check_map(trimmed))
+	process_metadata(proc->map, trim);
+	if (check_map(trim))
 	{
-		*map_started = 1;
-		add_map_line(manager, map_lines, trimmed, map_line_count);
+		*(proc->map_started) = 1;
+		add_map_line(manager, proc->map_lines, trim, proc->map_line_count);
 	}
 }
