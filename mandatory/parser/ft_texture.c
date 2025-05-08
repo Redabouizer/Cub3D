@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:49:28 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/08 14:52:03 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:15:33 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,7 @@ unsigned int get_texture_color(t_texture *texture, int y, int x)
     dst = texture->addr + (y * texture->line_length + x * (texture->bits_per_pixel / 8));
     
     // Return the color (endian-aware)
-    if (texture->endian == 1) // Big endian
-        return ((unsigned int)dst[0] << 24) | ((unsigned int)dst[1] << 16) | 
-               ((unsigned int)dst[2] << 8) | (unsigned int)dst[3];
-    else // Little endian (most common)
-        return ((unsigned int)dst[3] << 24) | ((unsigned int)dst[2] << 16) | 
-               ((unsigned int)dst[1] << 8) | (unsigned int)dst[0];
+    return *(unsigned int *) dst;
 }
 
 void render_texture(t_ray *ray_info, int x, t_wall *wall, t_game_data *data)

@@ -62,10 +62,10 @@ void process_wall_hit(t_game_data *data, t_ray *ray_info, int *hit, int *is_door
         {
             *hit = 1;
         }
-        else if (data->level_map[ray_info->map_y][ray_info->map_x] == 2)
-        {
-            *hit = 1;
-            *is_door = 1;
-        }
+        // else if (data->level_map[ray_info->map_y][ray_info->map_x] == 2)
+        // {
+        //     *hit = 1;
+            *is_door = 0;
+        // }
     }
 }

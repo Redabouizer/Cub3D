@@ -93,29 +93,29 @@ void setup_player_direction(t_game_data *data, t_map *map)
 	}
 }
 //add doors to map
-void insert_doors_into_map(t_game_data *data)
-{
-    int row;
-    int col;
+// void insert_doors_into_map(t_game_data *data)
+// {
+//     int row;
+//     int col;
 
-    row = 1;
-    while (row < data->map_height - 1)
-    {
-        col = 1;
-        while (col < data->map_width - 1)
-        {
-            if (data->level_map[row][col] == 0)
-            {
-                if (data->level_map[row][col - 1] == 1 && data->level_map[row][col + 1] == 1)
-                    data->level_map[row][col] = 2;
-                else if (data->level_map[row - 1][col] == 1 && data->level_map[row + 1][col] == 1)
-                    data->level_map[row][col] = 2;
-            }
-            col++;
-        }
-        row++;
-    }
-}
+//     row = 1;
+//     while (row < data->map_height - 1)
+//     {
+//         col = 1;
+//         while (col < data->map_width - 1)
+//         {
+//             if (data->level_map[row][col] == 0)
+//             {
+//                 if (data->level_map[row][col - 1] == 1 && data->level_map[row][col + 1] == 1)
+//                     data->level_map[row][col] = 2;
+//                 else if (data->level_map[row - 1][col] == 1 && data->level_map[row + 1][col] == 1)
+//                     data->level_map[row][col] = 2;
+//             }
+//             col++;
+//         }
+//         row++;
+//     }
+// }
 //creat world map
 void generate_world_map(t_game_data *data, t_map *map)
 {
@@ -123,7 +123,7 @@ void generate_world_map(t_game_data *data, t_map *map)
     data->map_height = map->map_height;
     map->map[map->player_y][map->player_x] = '0';
     setup_world_map(data, map);
-    insert_doors_into_map(data);
+    // insert_doors_into_map(data);
     data->player.position_x = map->player_x + 0.5;
     data->player.position_y = map->player_y + 0.5;
     setup_player_direction(data, map);

@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/08 13:21:48 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:32:27 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 #define PLAYER_ROTATION_SPEED 0.1
 #define PLAYER_MOVE_SPEED 0.1
 #define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 512
 #define MAX_BUFFER_SIZE 20
 #define TEXTURE_HEIGHT 64
 #define TEXTURE_SIZE 64
 #define COLLISION_MARGIN 0.2
-#define SCREEN_HEIGHT 512
 
 #define ESC_LINUX 65307
 #define SPACE_LINUX  32
