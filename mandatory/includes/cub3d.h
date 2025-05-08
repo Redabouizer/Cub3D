@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/08 12:47:23 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/08 12:51:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@
 #define TEXTURE_SIZE 64
 
 #define ESC 53
-    #define ESC_LINUX 65307
-    #define SPACE 49
-    #define SPACE_LINUX 32
-    #define W 13
-    #define A 0
-    #define S 1
-    #define D 2
-    #define UP 126
-    #define DOWN 125
-    #define LEFT 123
-    #define RIGHT 124
-    #define UP_LINUX 65362
-    #define DOWN_LINUX 65364
-    #define LEFT_LINUX 65361
-    #define RIGHT_LINUX 65363
+#define ESC_LINUX 65307
+#define SPACE 49
+#define SPACE_LINUX 32
+#define W 13
+#define A 0
+#define S 1
+#define D 2
+#define UP 126
+#define DOWN 125
+#define LEFT 123
+#define RIGHT 124
+#define UP_LINUX 65362
+#define DOWN_LINUX 65364
+#define LEFT_LINUX 65361
+#define RIGHT_LINUX 65363
 
 //********************Struct parser*********************************//
 typedef struct s_parser
