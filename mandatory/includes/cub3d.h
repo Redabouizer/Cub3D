@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/08 12:51:22 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/08 13:00:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 #define SCREEN_WIDTH 1024
 #define MAX_BUFFER_SIZE 20
 #define TEXTURE_HEIGHT 64
+#define TEXTURE_SIZE 64
 #define COLLISION_MARGIN 0.2
 #define SCREEN_HEIGHT 512
-#define TEXTURE_SIZE 64
 
 #define ESC 53
 #define ESC_LINUX 65307
