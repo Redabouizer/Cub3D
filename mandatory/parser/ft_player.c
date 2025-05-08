@@ -24,7 +24,7 @@ void	process_player_pos(t_map *map, char *line, int y)
 			map->player_x = x;
 			map->player_y = y;
 			map->player_direction = line[x];
-			map->map[y][x] = '2';
+			map->map[y][x] = '0';
 		}
 		x++;
 	}
