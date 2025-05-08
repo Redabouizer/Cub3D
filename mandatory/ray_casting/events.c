@@ -66,26 +66,26 @@ int handle_key_press(int keycode, t_game_data *data)
         return (0);
     ft_memset(&event, 0, sizeof(t_event));
     event.movement_speed = PLAYER_MOVE_SPEED;
-    if (keycode == ESC || keycode == ESC_LINUX)
+    if (keycode == ESC_LINUX)
     {
         free_all(data, NULL, 1);
         exit(0);
     }
-    else if (keycode == SPACE || keycode == SPACE_LINUX) 
+    else if (keycode == SPACE_LINUX) 
         interact_with_door(data);
     else
     {
-        if (keycode == W || keycode == UP || keycode == UP_LINUX)
+        if (keycode == W || keycode == UP_LINUX)
             move_forward(data, event);
-        else if (keycode == S || keycode == DOWN || keycode == DOWN_LINUX)
+        else if (keycode == S ||keycode == DOWN_LINUX)
             move_backward(data, event);
-        else if (keycode == D || keycode == RIGHT || keycode == RIGHT_LINUX)
+        else if (keycode == D ||keycode == RIGHT_LINUX)
             move_rightward(data, event);
-        else if (keycode == A || keycode == LEFT || keycode == LEFT_LINUX)
+        else if (keycode == A ||keycode == LEFT_LINUX)
             move_leftward(data, event);
-        if (keycode == LEFT || keycode == LEFT_LINUX)
+        if (keycode == LEFT_LINUX)
             turn_left(data, &event);
-        else if (keycode == RIGHT || keycode == RIGHT_LINUX)
+        else if (keycode == RIGHT_LINUX)
             turn_right(data, &event);
     }
     refresh_image(data);

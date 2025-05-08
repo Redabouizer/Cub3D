@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 20:54:18 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/08 14:39:53 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	validate_map(t_mem **mm, const char *file)
 	map = parse_map_file(mm, file);
 	if (!map)
 		return (-1);
+	// print_map_data(map);
 	// here you should check the function that can read from the file or not
 	// Protection issue
 	setup_data(&data, map);
@@ -78,6 +79,5 @@ int	validate_map(t_mem **mm, const char *file)
 	render_scene(&data);
 	mlx_loop(data.mlx);
 	free_all(&data, map, 1);
-	print_map_data(map);
 	return (0);
 }

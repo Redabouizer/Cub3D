@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:48:00 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/07 19:10:44 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/08 14:39:30 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	if (validate_map(&mm, file) == -1)
-		return (1);
+		return (cleanup(&mm), 1);
+	cleanup(&mm);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/08 13:00:29 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/08 13:21:48 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,12 @@
 #define COLLISION_MARGIN 0.2
 #define SCREEN_HEIGHT 512
 
-#define ESC 53
 #define ESC_LINUX 65307
-#define SPACE 49
-#define SPACE_LINUX 32
-#define W 13
-#define A 0
-#define S 1
-#define D 2
-#define UP 126
-#define DOWN 125
-#define LEFT 123
-#define RIGHT 124
+#define SPACE_LINUX  32
+#define W 119
+#define A 97
+#define S 115
+#define D 100
 #define UP_LINUX 65362
 #define DOWN_LINUX 65364
 #define LEFT_LINUX 65361
