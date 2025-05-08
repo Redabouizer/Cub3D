@@ -1,21 +1,21 @@
 #include "../includes/cub3d.h"
 
-int handle_mouse_enter(t_game_data *data __attribute__ ((unused)))
+int handle_mouse_enter(t_game_data *data __attribute__((unused)))
 {
     return (0);
 }
 
-int handle_mouse_leave(t_game_data *data __attribute__ ((unused)))
+int handle_mouse_leave(t_game_data *data __attribute__((unused)))
 {
     return (0);
 }
-void	refresh_image(t_game_data *data)
+void refresh_image(t_game_data *data)
 {
-	mlx_destroy_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, \
-	&data->line_length, &data->endian);
-	render_scene(data);
+    mlx_destroy_image(data->mlx, data->img);
+    data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+    data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+                                   &data->line_length, &data->endian);
+    render_scene(data);
 }
 
 void adjust_fov(t_game_data *data, int delta_x)
@@ -28,11 +28,11 @@ void adjust_fov(t_game_data *data, int delta_x)
     previous_dir_x = data->player.direction_x;
     data->player.direction_x = data->player.direction_x * cos(-angle) - data->player.direction_y * sin(-angle);
     data->player.direction_y = previous_dir_x * sin(-angle) + data->player.direction_y * cos(-angle);
-    
+
     previous_plane_x = data->player.plane_x;
     data->player.plane_x = data->player.plane_x * cos(-angle) - data->player.plane_y * sin(-angle);
     data->player.plane_y = previous_plane_x * sin(-angle) + data->player.plane_y * cos(-angle);
-    
+
     refresh_image(data);
 }
 
@@ -58,37 +58,39 @@ int handle_mouse_move(int x, int y, t_game_data *data)
     last_x = x;
     return (0);
 }
-
 int handle_key_press(int keycode, t_game_data *data)
 {
     t_event event;
-
-    if (keycode == 53 || keycode == 65307)
+    
+    if (!data)
+        return (0);
+    ft_memset(&event, 0, sizeof(t_event));
+    event.movement_speed = PLAYER_MOVE_SPEED;
+    if (keycode == ESC || keycode == ESC_LINUX)
     {
         free_all(data, NULL, 1);
         exit(0);
     }
-
-    if (keycode == 49)
+    else if (keycode == SPACE || keycode == SPACE_LINUX) 
         interact_with_door(data);
-    
-    event.movement_speed = PLAYER_MOVE_SPEED;
-    if (keycode == 13 || keycode == 126)
-        move_forward(data, event);
-    if (keycode == 1 || keycode == 125)
-        move_backward(data, event);
-    if (keycode == 2)
-        move_rightward(data, event);
-    if (keycode == 0)
-        move_leftward(data, event);
-    if (keycode == 123)
-        turn_left(data, &event);
-    if (keycode == 124)
-        turn_right(data, &event);
+    else
+    {
+        if (keycode == W || keycode == UP || keycode == UP_LINUX)
+            move_forward(data, event);
+        else if (keycode == S || keycode == DOWN || keycode == DOWN_LINUX)
+            move_backward(data, event);
+        else if (keycode == D || keycode == RIGHT || keycode == RIGHT_LINUX)
+            move_rightward(data, event);
+        else if (keycode == A || keycode == LEFT || keycode == LEFT_LINUX)
+            move_leftward(data, event);
+        if (keycode == LEFT || keycode == LEFT_LINUX)
+            turn_left(data, &event);
+        else if (keycode == RIGHT || keycode == RIGHT_LINUX)
+            turn_right(data, &event);
+    }
     refresh_image(data);
     return (0);
 }
-
 int close_window(t_game_data *data)
 {
     free_all(data, NULL, 1);

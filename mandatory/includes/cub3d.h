@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/07 20:31:20 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/08 12:47:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,23 @@
 #define COLLISION_MARGIN 0.2
 #define SCREEN_HEIGHT 512
 #define TEXTURE_SIZE 64
+
+#define ESC 53
+    #define ESC_LINUX 65307
+    #define SPACE 49
+    #define SPACE_LINUX 32
+    #define W 13
+    #define A 0
+    #define S 1
+    #define D 2
+    #define UP 126
+    #define DOWN 125
+    #define LEFT 123
+    #define RIGHT 124
+    #define UP_LINUX 65362
+    #define DOWN_LINUX 65364
+    #define LEFT_LINUX 65361
+    #define RIGHT_LINUX 65363
 
 //********************Struct parser*********************************//
 typedef struct s_parser
@@ -88,6 +105,15 @@ typedef struct s_line_proc
 	int		*map_line_count;
 	t_map	*map;
 }				t_line_proc;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_texture;
 
 
 //********************Struct Ray Casting*********************************//
@@ -156,15 +182,6 @@ typedef struct s_event
 	double	movement_speed;
 }	t_event;
 
-typedef struct s_texture
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_texture;
-
 typedef struct s_game_data
 {
 	int				bits_per_pixel;
@@ -179,7 +196,7 @@ typedef struct s_game_data
 	void			*img;
 	char			*addr;
 	int				**level_map;
-	// 	t_texture		textures[9];
+	t_texture		textures[5];
 	t_player		player;
 	t_ray		raycaster;
 }	t_game_data;
@@ -198,13 +215,10 @@ char	*read_fd(int fd);
 int		close_fd(int fd);
 
 t_map	*init_map(t_mem **manager);
-char	*ft_allocat(int fd);
 void	*my_malloc(t_mem **manager, size_t size);
 void	cleanup(t_mem **manager);
 
 int		create_trgb(int t, int r, int g, int b);
-int		fd_line(char *file);
-int		ft_count(char **strs, char c);
 
 int		validate_map(t_mem **mm, const char *file);
 
@@ -241,6 +255,10 @@ void	pad_map_line(t_mem **m, t_map *map, char **lines, int i);
 /*   ft_data.c                                          :+:      :+:    :+:   */
 int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
 int		set_texture(char **texture, char *line);
+
+/*   ft_texture.c                                       :+:      :+:    :+:   */
+void load_textures(t_game_data *data, t_map *map);
+
 
 void	print_map_data(t_map *map);
 
@@ -290,8 +308,10 @@ void put_pixel_to_mlx(t_game_data *data, int x, int y, int color);
 void compute_wall_x(t_ray *ray_info, t_wall *wall, t_game_data *data);
 void render_floor_and_ceiling(t_game_data *data);
 void release_textures(char **file_paths);
+void render_texture(t_ray *ray_info, int x, t_wall *wall, t_game_data *data);
 void free_map_resources(t_map *map);
 void	display_destruction(t_game_data *data);
 void	free_all(t_game_data *data, t_map *map, int flag);
+void	free_path(char **paths);
 
 #endif

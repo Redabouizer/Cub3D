@@ -24,7 +24,7 @@ void	process_player_pos(t_map *map, char *line, int y)
 			map->player_x = x;
 			map->player_y = y;
 			map->player_direction = line[x];
-			map->map[y][x] = '0';
+			map->map[y][x] = '2';
 		}
 		x++;
 	}
@@ -40,13 +40,13 @@ void	pad_map_line(t_mem **m, t_map *map, char **lines, int i)
 	while (j < (int)ft_strlen(lines[i]))
 	{
 		if (lines[i][j] == ' ')
-			padded[j] = '0';
+			padded[j] = '1';
 		else
 			padded[j] = lines[i][j];
 		j++;
 	}
 	while (j < map->map_width)
-		padded[j++] = '0';
+		padded[j++] = '1';
 	padded[map->map_width] = '\0';
 	map->map[i] = padded;
 	process_player_pos(map, lines[i], i);

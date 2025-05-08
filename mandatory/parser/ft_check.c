@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 20:18:57 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/07 20:54:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	validate_map(t_mem **mm, const char *file)
 	setup_data(&data, map);
 	data.raycaster = raycaster;
 	generate_world_map(&data, map);
-	// load_texture(&data, &map);
+	load_textures(&data, map);
 	mlx_hook(data.window, 2, 1L << 0, handle_key_press, &data);
 	mlx_hook(data.window, 6, 1L << 6, handle_mouse_move, &data);
 	mlx_hook(data.window, 7, 1L << 4, handle_mouse_enter, &data);
@@ -78,6 +78,6 @@ int	validate_map(t_mem **mm, const char *file)
 	render_scene(&data);
 	mlx_loop(data.mlx);
 	free_all(&data, map, 1);
-	// print_map_data(map);
+	print_map_data(map);
 	return (0);
 }

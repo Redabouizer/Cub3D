@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/07 20:07:33 by marvin           ###   ########.fr        #
+#    Updated: 2025/05/07 20:52:15 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRCS = \
 	mandatory/ray_casting/door_interaction.c\
 	mandatory/ray_casting/events.c\
 	mandatory/ray_casting/game_r_casting_helper.c\
-	mandatory/ray_casting/game_ray-casting.c\
+	mandatory/ray_casting/game_ray_casting.c\
 	mandatory/ray_casting/player_rotate_and_texture.c\
 	mandatory/ray_casting/setup_data.c\
 	mandatory/ray_casting/setuping.c\

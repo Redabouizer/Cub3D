@@ -43,3 +43,16 @@ void	free_all(t_game_data *data, t_map *map, int flag)
 	if (map)
 		free_map_resources(map);
 }
+
+void free_path(char **paths)
+{
+	int i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(paths[i]);
+		i++;
+	}
+	free(paths);
+}
