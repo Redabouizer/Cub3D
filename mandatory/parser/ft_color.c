@@ -3,38 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_color.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:51:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/05 22:51:31 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/10 22:58:51 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	get_color(const char *color, unsigned int *result)
+int get_color(const char *color, unsigned int *result)
 {
-	char	**values;
-	int		vals[3];
-	int		i;
+    char    **values;
+    int        vals[3];
+    int        i;
 
-	if (!color || !result)
-		return (0);
-	values = ft_split(color, ',');
-	if (!values)
-		return (0);
-	i = 0;
-	while (i < 3 && values[i])
-	{
-		vals[i] = ft_atoi(values[i]);
-		if (vals[i] < 0 || vals[i] > 255)
-			return (free_values(values));
-		i++;
-	}
-	if (i != 3)
-		return (free_values(values));
-	*result = create_trgb(0, vals[0], vals[1], vals[2]);
-	return (free_values(values) + 1);
+    if (!color || !result)
+        return (0);
+    values = ft_split(color, ',');
+    if (!values)
+        return (0);
+    
+    // Count how many values we have
+    i = 0;
+    while (values[i])
+        i++;
+    
+    // We must have exactly 3 values
+    if (i != 3)
+    {
+        free_values(values);
+        return (0);
+    }
+    
+    // Now parse the values
+    i = 0;
+    while (i < 3)
+    {
+        vals[i] = ft_atoi(values[i]);
+        if (vals[i] < 0 || vals[i] > 255)
+        {
+            free_values(values);
+            return (0);
+        }
+        i++;
+    }
+    
+    *result = create_trgb(0, vals[0], vals[1], vals[2]);
+    free_values(values);
+    return (1);
 }
 
 int	is_valid_type(char **tokens, const char *type, unsigned int *color)

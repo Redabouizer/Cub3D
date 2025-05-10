@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:48:00 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 20:11:15 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 21:02:27 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	if (validate_map(&mm, file) == -1)
-		return (cleanup(&mm), 1);
-	cleanup(&mm);
+		return (1);
 	return (0);
 }
 

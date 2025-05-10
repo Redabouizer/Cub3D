@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 20:03:18 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 21:41:08 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
 int		set_texture(char **texture, char *line);
 
 /*   ft_texture.c                                       :+:      :+:    :+:   */
-void load_textures(t_game_data *data, t_map *map);
+int load_textures(t_game_data *data, t_map *map);
 
 
 void	print_map_data(t_map *map);

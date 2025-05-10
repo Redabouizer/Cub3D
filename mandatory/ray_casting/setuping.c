@@ -4,9 +4,10 @@
 //init data
 void setup_data(t_game_data *data, t_map *map)
 {
+    ft_memset(data, 0, sizeof(t_game_data));
+    
     data->mlx = mlx_init();
-    if (!data->mlx)
-    {
+    if (!data->mlx) {
         printf("Failed to initialize MLX!\n");
         free_map_resources(map);
         exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 23:08:17 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 20:32:34 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 21:38:58 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc)
         result = 1;
     }
     
-    free(trim); // Always free here
+    free(trim);
     return (result);
 }

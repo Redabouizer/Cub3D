@@ -45,26 +45,53 @@ void release_textures(char **file_paths)
 
 void free_map_resources(t_map *map)
 {
-    int index;
+    int i;
 
-    index = 0;
-    while (index < map->map_height)
+    if (!map)
+        return;
+
+    if (map->map)
     {
-        free(map->map[index]);
-        index++;
+        i = 0;
+        while (i < map->map_height)
+        {
+            free(map->map[i]);
+            i++;
+        }
+        free(map->map);
+        map->map = NULL;
     }
-    index = 0;
     if (map->file_content)
     {
-        while (map->file_content[index])
-        {
-            free(map->file_content[index]);
-            index++;
+        i = 0;
+        while (map->file_content[i]) {
+            free(map->file_content[i]);
+            i++;
         }
         free(map->file_content);
         map->file_content = NULL;
     }
-    free(map->map);
-    map->map = NULL;
-//release the texture
+
+    if (map->north_texture)
+    {
+        free(map->north_texture);
+        map->north_texture = NULL;
+    }
+    if (map->south_texture)
+    {
+        free(map->south_texture);
+        map->south_texture = NULL;
+    }
+    if (map->east_texture)
+    {
+        free(map->east_texture);
+        map->east_texture = NULL;
+    }
+    if (map->west_texture)
+    {
+        free(map->west_texture);
+        map->west_texture = NULL;
+    }
+    if (map->mm)
+        cleanup(map->mm);
 }

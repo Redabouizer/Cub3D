@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:31:53 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 20:32:43 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:42:46 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ int	free_values(char **values)
 	return (0);
 }
 
-void	cleanup_map_lines(char *first_map_line, char *last_map_line)
+void cleanup_map_lines(char *first_map_line, char *last_map_line)
 {
-	free(first_map_line);
-	free(last_map_line);
+    if (first_map_line)
+        free(first_map_line);
+    if (last_map_line)
+        free(last_map_line);
 }

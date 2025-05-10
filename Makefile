@@ -6,14 +6,14 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/10 20:38:04 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/10 21:44:06 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address,leak,undefined
 
 # Linux MLX configuration (updated paths)
 MLX_DIR = ./mlx_linux

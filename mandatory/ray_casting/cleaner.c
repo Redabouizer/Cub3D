@@ -44,14 +44,35 @@ void free_all(t_game_data *data, t_map *map, int flag)
     if (!data)
         return;
 
-    if (flag == 1)
-        free_array_text(data);
-        
-    display_destruction(data);
-    free_worldmap(data);
-    
-    if (map && flag && map->mm)
-        cleanup(map->mm);
+    // Free textures
+    for (int i = 0; i < 4; i++) {
+        if (data->textures[i].img) {
+            mlx_destroy_image(data->mlx, data->textures[i].img);
+            data->textures[i].img = NULL;
+        }
+    }
+    if (data->img) {
+        mlx_destroy_image(data->mlx, data->img);
+        data->img = NULL;
+    }
+    if (data->window) {
+        mlx_destroy_window(data->mlx, data->window);
+        data->window = NULL;
+    }
+    if (data->level_map) {
+        for (int i = 0; i < data->map_height; i++) {
+            free(data->level_map[i]);
+        }
+        free(data->level_map);
+        data->level_map = NULL;
+    }
+    if (map && flag)
+        free_map_resources(map);
+    if (data->mlx)
+	{
+        free(data->mlx);
+        data->mlx = NULL;
+    }
 }
 
 

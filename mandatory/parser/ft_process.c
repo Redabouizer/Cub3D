@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 20:32:12 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:53:48 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int process_line_content(char **line, t_line_content *cnt, int *tab)
         if (!proc_init(trim, tab, &cnt->map_on, &cnt->first_mp_l))
         {
             free(trim);
-            return (printf("Error: Invalid line\n"), 0);
+            return (0);
         }
     }
     else
@@ -110,7 +110,7 @@ int	process_file(const char *file)
 	fl.tab = tab;
 	fl.content.ply_count = &ply_count;
 	if (!process_file_lines(&fl))
-		return (close_fd(fd), -1);
+		return (printf("Validation failed\n"),close_fd(fd), -1);
 	if (close_fd(fd) < 0)
 		return (-1);
 	if (tab[0] != 1 || tab[1] != 1 || tab[2] != 1 || tab[3] != 1
@@ -127,7 +127,7 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
         return (1);
         
     trimmed = ft_strtrim(line, "\t\n\r");
-    free(line);
+    free(line);  // Free the original line
     
     if (!trimmed)
         return (1);
@@ -140,12 +140,9 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
     
     if (!(*proc->map_started))
     {
-        if (!process_metadata_line(manager, trimmed, proc))
-        {
-            free(trimmed); // Only free here if process_metadata_line fails
-            return (0);
-        }
+        int result = process_metadata_line(manager, trimmed, proc);
         // Don't free trimmed here - process_metadata_line will handle it
+        return result;
     }
     else if (check_map(trimmed))
     {

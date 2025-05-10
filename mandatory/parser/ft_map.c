@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:34:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 20:30:54 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:52:45 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ t_map	*parse_map_file(t_mem **manager, const char *file)
 		return (NULL);
 	if (!process_map_lines(manager, fd, map))
 		return (NULL);
+	map->mm = manager;
 	if (close_fd(fd) < 0)
 		return (NULL);
 	return (map);

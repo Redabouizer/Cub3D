@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:49:28 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/08 16:15:33 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 22:47:29 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ int set_texture(char **texture, char *line)
 
     path = ft_strtrim(line + 3, " \t\n\r\f\v");
     if (!path)
-        return (printf("Error : Memory allocation failed\n"), 0);
+        return (printf("Error: Memory allocation failed\n"), 0);
     if (!check_texture(path))
     {
         free(path);
-        return (printf("Error : Texture not found\n"), 0);
+        return (printf("Error: Texture not found\n"), 0);
     }
+    if (*texture)  
+        free(*texture);
     *texture = path;
     return (1);
 }
@@ -69,7 +71,7 @@ static char **allocate_texture_paths(t_game_data *data, t_map *map)
     return (paths);
 }
 
-void load_textures(t_game_data *data, t_map *map)
+int load_textures(t_game_data *data, t_map *map)
 {
     char **paths;
     size_t index;
@@ -84,16 +86,17 @@ void load_textures(t_game_data *data, t_map *map)
         if (!data->textures[index].img)
         {
             printf("Error loading texture from %s\n", paths[index]);
-            exit(EXIT_FAILURE);
+            free_path(paths);
+            return (1);
         }
         data->textures[index].addr = mlx_get_data_addr(data->textures[index].img, 
-                                                         &data->textures[index].bits_per_pixel, 
-                                                         &data->textures[index].line_length, 
-                                                         &data->textures[index].endian);
+                                                     &data->textures[index].bits_per_pixel, 
+                                                     &data->textures[index].line_length, 
+                                                     &data->textures[index].endian);
         index++;
     }
     free_path(paths);
-    free_map_resources(map);
+    return (0);
 }
 
 unsigned int get_texture_color(t_texture *texture, int y, int x)
