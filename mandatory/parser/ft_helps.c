@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_helps.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 19:39:19 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 05:53:28 by rbouizer         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/cub3d.h"
 
 int	create_trgb(int t, int r, int g, int b)
@@ -22,9 +10,12 @@ int is_valid_position(char **map, t_point pos)
 {
     int x = (int)pos.x_p;
     int y = (int)pos.y_p;
-        if (x < 0 || map[x] == NULL)
+    
+    // Check if x is within bounds
+    if (x < 0 || map[x] == NULL)
         return 0;
-    if (y < 0 || y >= (int)strlen(map[x]))
+    // Check if y is within bounds for the given row
+    if (y < 0 || y >= (int)ft_strlen(map[x]))
         return 0;
     return 1;
 }

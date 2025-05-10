@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 03:23:14 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:45:15 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,14 @@ int process_file_lines(t_file_lines *fl)
     {
         if (!process_line_content(&line, &fl->content, fl->tab))
         {
-            free(line); // Ensure line is freed if process fails
-            free(fl->content.first_mp_l); // Free any allocated map lines
+            free(line);
+            free(fl->content.first_mp_l);
             free(fl->content.last_mp_l);
             return (0);
         }
         line = read_fd(fl->fd);
     }
-    int result = validate_state(fl->content.first_mp_l, fl->content.last_mp_l);
-    free(fl->content.first_mp_l); // Free map lines after validation
-    free(fl->content.last_mp_l);
-    return result;
+    return validate_state(fl->content.first_mp_l, fl->content.last_mp_l);
 }
 
 int	process_file(const char *file)
