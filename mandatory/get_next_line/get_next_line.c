@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:19:41 by rbouizer          #+#    #+#             */
-/*   Updated: 2024/02/20 19:08:55 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 04:31:20 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static char	*save_all(char *save, int fd)
 	free(str);
 	return (save);
 }
-
 char	*get_next_line(int fd)
 {
 	static char	*save;

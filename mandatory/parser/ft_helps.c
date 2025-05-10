@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:39:19 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 02:17:22 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 05:53:28 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,10 @@ int is_valid_position(char **map, t_point pos)
 {
     int x = (int)pos.x_p;
     int y = (int)pos.y_p;
-    
-    // Check if row exists and position is within bounds
-    if (x < 0 || map[x] == NULL)
+        if (x < 0 || map[x] == NULL)
         return 0;
-    
-    // Check column position
     if (y < 0 || y >= (int)strlen(map[x]))
         return 0;
-    
     return 1;
 }
 

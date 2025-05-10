@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 02:39:14 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 03:08:53 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	validate_map_section(char *trimmed, int *map_ended, char **last_line)
 		return (printf("Error: Double map detected\n"), 0);
 	if (!validate_map_borders(trimmed))
 		return (printf("Error: Invalid map borders\n"), 0);
+	
 	if (*last_line)
 		free(*last_line);
 	*last_line = ft_strdup(trimmed);
@@ -57,7 +58,6 @@ int	validate_map(t_mem **mm, const char *file)
 	t_map		*map;
 	t_ray	raycaster;
 	
-	(void)mm;
 	raycaster = (t_ray){0};
 	if (process_file(file) != 0)
 		return (-1);

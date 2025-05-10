@@ -6,66 +6,95 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 02:46:06 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 03:23:14 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	proc_init(char *trim, int *tab, int *map_on, char **fst_map_l)
+int proc_init(char *trim, int *tab, int *map_on, char **fst_map_l)
 {
-	if (process_meta_line(trim, tab))
-		return (1);
-	if (check_map(trim))
-	{
-		*map_on = 1;
-		*fst_map_l = ft_strdup(trim);
-		if (!validate_continuous_ones(*fst_map_l))
-			return (printf("Error: First line invalid\n"), 0);
-		return (1);
-	}
-	return (0);
+    if (process_meta_line(trim, tab))
+        return (1);
+    if (check_map(trim))
+    {
+        *map_on = 1;
+        *fst_map_l = ft_strdup(trim);
+        if (!*fst_map_l)
+            return (printf("Error: Memory allocation failed\n"), 0);
+        if (!validate_continuous_ones(*fst_map_l))
+        {
+            free(*fst_map_l);
+            *fst_map_l = NULL;
+            return (printf("Error: First line invalid\n"), 0);
+        }
+        return (1);
+    }
+    return (0);
 }
 
-int	process_line_content(char **line, t_line_content *cnt, int *tab)
-{
-	char	*trim;
 
-	trim = ft_strtrim(*line, " \t\n\r");
-	free(*line);
-	if (!trim || trim[0] == '\0')
-	{
-		if (cnt->map_on)
-			cnt->map_end = 1;
-		free(trim);
-		return (1);
-	}
-	if (!cnt->map_on && !proc_init(trim, tab, &cnt->map_on, &cnt->first_mp_l))
-		return (printf("Error: Invalid line\n"), free(trim), 0);
-	if (cnt->map_on && !validate_wrapper(trim, &cnt->map_end, &cnt->last_mp_l))
-		return (free(trim), 0);
-	if (cnt->map_on)
-		check_player_count(trim, cnt->ply_count);
-	free(trim);
-	return (1);
+int process_line_content(char **line, t_line_content *cnt, int *tab)
+{
+    char *trim;
+
+    trim = ft_strtrim(*line, " \t\n\r");
+    free(*line);
+    *line = NULL;
+    if (!trim)
+        return (printf("Error: Memory allocation failed\n"), 0);
+    if (trim[0] == '\0')
+    {
+        if (cnt->map_on)
+            cnt->map_end = 1;
+        free(trim);
+        return 1;
+    }
+    if (!cnt->map_on)
+    {
+        if (!proc_init(trim, tab, &cnt->map_on, &cnt->first_mp_l))
+        {
+            free(trim);
+            return (printf("Error: Invalid line\n"), 0);
+        }
+    }
+    else
+    {
+        if (!validate_wrapper(trim, &cnt->map_end, &cnt->last_mp_l))
+        {
+            free(trim);
+            return 0;
+        }
+        check_player_count(trim, cnt->ply_count);
+    }
+    free(trim);
+    return 1;
 }
 
-int	process_file_lines(t_file_lines *fl)
+int process_file_lines(t_file_lines *fl)
 {
-	char	*line;
+    char *line;
 
-	fl->content.map_on = 0;
-	fl->content.map_end = 0;
-	fl->content.first_mp_l = NULL;
-	fl->content.last_mp_l = NULL;
-	line = read_fd(fl->fd);
-	while (line != NULL)
-	{
-		if (!process_line_content(&line, &fl->content, fl->tab))
-			return (0);
-		line = read_fd(fl->fd);
-	}
-	return (validate_state(fl->content.first_mp_l, fl->content.last_mp_l));
+    fl->content.map_on = 0;
+    fl->content.map_end = 0;
+    fl->content.first_mp_l = NULL;
+    fl->content.last_mp_l = NULL;
+    line = read_fd(fl->fd);
+    while (line != NULL)
+    {
+        if (!process_line_content(&line, &fl->content, fl->tab))
+        {
+            free(line); // Ensure line is freed if process fails
+            free(fl->content.first_mp_l); // Free any allocated map lines
+            free(fl->content.last_mp_l);
+            return (0);
+        }
+        line = read_fd(fl->fd);
+    }
+    int result = validate_state(fl->content.first_mp_l, fl->content.last_mp_l);
+    free(fl->content.first_mp_l); // Free map lines after validation
+    free(fl->content.last_mp_l);
+    return result;
 }
 
 int	process_file(const char *file)

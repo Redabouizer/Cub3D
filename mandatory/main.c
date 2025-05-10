@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:48:00 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 02:48:36 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 04:30:54 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,23 @@ int	main(int argc, char *argv[])
 	cleanup(&mm);
 	return (0);
 }
+
+// int	main(int argc, char *argv[])
+// {
+// 	char * str;
+// 	if (argc == 2)
+// 	{
+// 		printf("ascsa");
+// 		int fd  = open_fd(argv[1]);
+// 		str = read_fd(fd);
+// 		while (str)
+// 		{
+// 			printf("%s", str);
+// 			free(str);
+// 			exit (0);
+// 			str = read_fd(fd);
+// 		}
+// 		close_fd(fd);
+// 		return (0);
+// 	}
+// }
