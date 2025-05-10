@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/08 16:32:27 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 02:22:40 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ void	*my_malloc(t_mem **manager, size_t size);
 void	cleanup(t_mem **manager);
 
 int		create_trgb(int t, int r, int g, int b);
+int check_zero_space(char **map);
 
 int		validate_map(t_mem **mm, const char *file);
 
@@ -255,6 +256,7 @@ void load_textures(t_game_data *data, t_map *map);
 
 
 void	print_map_data(t_map *map);
+void 	print_map_grid(char **map, int height);
 
 //********************Prototype Ray Casting*********************************//
 int	is_door_accessible(t_game_data *game_data, int x_coord, int y_coord);

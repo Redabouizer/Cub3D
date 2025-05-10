@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_node.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:31:53 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 21:02:02 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:48:02 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,28 @@ int add_map_line(t_mem **manager, char ***lines, char *trimmed, int *count)
 {
     char    **new_lines;
     int     i;
-    char    *duplicate;
 
     if (!manager || !lines || !trimmed || !count)
-        return (0);
-    duplicate = ft_strdup(trimmed);
-    if (!duplicate)
-        return (0);
+        return 0;
     new_lines = my_malloc(manager, sizeof(char *) * (*count + 1));
     if (!new_lines)
-        return (free(duplicate), 0);
+        return 0;
     i = 0;
     while (i < *count)
     {
         new_lines[i] = (*lines)[i];
         i++;
     }
-    new_lines[*count] = duplicate;
+    new_lines[*count] = my_malloc(manager, strlen(trimmed) + 1);
+    if (!new_lines[*count])
+    {
+        free(new_lines);
+        return 0;
+    }
+    ft_strlcpy(new_lines[*count], trimmed, strlen(trimmed) + 1);
     (*count)++;
-    if (*lines)
-        free(*lines);
     *lines = new_lines;
-    return (1);
+    return 1;
 }
 
 int	free_values(char **values)

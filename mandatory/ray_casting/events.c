@@ -52,7 +52,6 @@ int handle_mouse_move(int x, int y, t_game_data *data)
         return (0);
     }
     delta_x = x - last_x;
-    printf("hello %d,%d,%d\n",delta_x, x, last_x);
     if (abs(delta_x) > 0)
     {
         adjust_fov(data, delta_x);

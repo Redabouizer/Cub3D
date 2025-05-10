@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 20:07:56 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:46:06 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
         return (1);
     if (trimmed[0] == '\0' && !(*proc->map_started))
         return (free(trimmed), 1);
+	
     if (!(*proc->map_started))
     {
         if (!process_metadata_line(manager, trimmed, proc))
@@ -116,7 +117,6 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
     {
         if (!add_map_line(manager, proc->map_lines, trimmed, proc->map_line_count))
         {
-
             free(trimmed);
             return (0);
         }
@@ -126,5 +126,5 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
 		printf("Error: Invalid line in map section\n");
 		return (free(trimmed), 0);
 	}
-    return (1); // Success
+    return (1);
 }

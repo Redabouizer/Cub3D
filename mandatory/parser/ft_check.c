@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/08 16:05:12 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 02:39:14 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	validate_map(t_mem **mm, const char *file)
 	map = parse_map_file(mm, file);
 	if (!map)
 		return (-1);
-	print_map_data(map);
+	// print_map_data(map);
 	// here you should check the function that can read from the file or not
 	// Protection issue
 	setup_data(&data, map);

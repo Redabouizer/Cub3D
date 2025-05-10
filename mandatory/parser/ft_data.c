@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_data.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 23:08:17 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 18:07:49 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/10 02:30:24 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc)
         if (!add_map_line(manager, proc->map_lines, trim, proc->map_line_count))
         {
             free(trim);
-            return (0); // Return error if map line addition fails
+            return (0);
         }
     }
     free(trim);
