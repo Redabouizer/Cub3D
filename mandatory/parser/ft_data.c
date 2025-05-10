@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 23:08:17 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 02:30:24 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:32:34 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,26 @@ int process_metadata(t_map *map, char *line)
         return (get_color(line + 2, &map->ceiling_color));
     return (1);
 }
-
 int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc)
 {
+    int result;
+
     if (!process_metadata(proc->map, trim))
     {
         free(trim);
-        return (0); // Return error if metadata processing fails
+        return (0);
     }
+    
     if (check_map(trim))
     {
         *(proc->map_started) = 1;
-        if (!add_map_line(manager, proc->map_lines, trim, proc->map_line_count))
-        {
-            free(trim);
-            return (0);
-        }
+        result = add_map_line(manager, proc->map_lines, trim, proc->map_line_count);
     }
-    free(trim);
-    return (1);
+    else
+    {
+        result = 1;
+    }
+    
+    free(trim); // Always free here
+    return (result);
 }

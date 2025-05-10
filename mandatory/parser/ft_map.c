@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:34:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 19:51:00 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:30:54 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@ static int	calculate_max_width(char **map_lines, int map_line_count)
 	return (max_width);
 }
 
-void	finalize_map(t_mem **mn, t_map *map, char **map_lines, int map_l_count)
+void finalize_map(t_mem **mn, t_map *map, char **map_lines, int map_l_count)
 {
-	int	max_width;
-	int	i;
+    int max_width;
+    int i;
 
-	max_width = calculate_max_width(map_lines, map_l_count);
-	map->map = my_malloc(mn, sizeof(char *) * (map_l_count + 1));
-	map->map_height = map_l_count;
-	map->map_width = max_width;
-	i = 0;
-	while (i < map_l_count)
-	{
-		pad_map_line(mn, map, map_lines, i);
-		free(map_lines[i]);
-		i++;
-	}
-	free(map_lines);
+    max_width = calculate_max_width(map_lines, map_l_count);
+    map->map = my_malloc(mn, sizeof(char *) * (map_l_count + 1));
+    map->map_height = map_l_count;
+    map->map_width = max_width;
+    i = 0;
+    while (i < map_l_count)
+    {
+        pad_map_line(mn, map, map_lines, i);
+        free(map_lines[i]); // Free each line after processing
+        i++;
+    }
+    free(map_lines); // Free the array itself
 }
 
 int	process_map_lines(t_mem **manager, int fd, t_map *map)
@@ -72,7 +72,7 @@ int	process_map_lines(t_mem **manager, int fd, t_map *map)
 		line = read_fd(fd);
 	}
 	if (map_lines && !check_zero_space(map_lines))
-    return (ft_putendl_fd("Error: Invalid space around '0' in map", 2), 0);
+    	return (ft_putendl_fd("Error: Invalid space around '0' in map", 2), 0);
 	finalize_map(manager, map, map_lines, map_line_count);
 	return (1);
 }

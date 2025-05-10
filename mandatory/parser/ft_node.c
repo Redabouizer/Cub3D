@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:31:53 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 19:50:40 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:32:43 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,28 @@ int add_map_line(t_mem **manager, char ***lines, char *trimmed, int *count)
 
     if (!manager || !lines || !trimmed || !count)
         return 0;
-    new_lines = my_malloc(manager, sizeof(char *) * (*count + 2)); // +2 for new line and NULL terminator
+        
+    new_lines = my_malloc(manager, sizeof(char *) * (*count + 2));
     if (!new_lines)
         return 0;
+        
     i = 0;
     while (i < *count)
     {
         new_lines[i] = (*lines)[i];
         i++;
     }
+    
     new_lines[*count] = my_malloc(manager, ft_strlen(trimmed) + 1);
     if (!new_lines[*count])
     {
         free(new_lines);
         return 0;
     }
+    
     ft_strlcpy(new_lines[*count], trimmed, ft_strlen(trimmed) + 1);
     (*count)++;
-    new_lines[*count] = NULL; // Ensure NULL termination
+    new_lines[*count] = NULL;
     *lines = new_lines;
     return 1;
 }

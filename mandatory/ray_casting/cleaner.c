@@ -1,58 +1,72 @@
 #include "../includes/cub3d.h"
 
-void	free_array_text(t_game_data *data __attribute__ ((unused)))
-{
-	int	i;
 
-	i = 0;
-	while (i < 5)
-	{
-		// destruct the texture based on mlx
-		i++;
-	}
+void free_array_text(t_game_data *data)
+{
+    int i;
+
+    i = 0;
+    while (i < 4)
+    {
+        if (data->textures[i].img)
+            mlx_destroy_image(data->mlx, data->textures[i].img);
+        i++;
+    }
 }
 
-void	display_destruction(t_game_data *data)
+void display_destruction(t_game_data *data)
 {
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->window);
-	if (data->mlx)
-		free(data->mlx);
+    if (data->img)
+        mlx_destroy_image(data->mlx, data->img);
+    if (data->window)
+        mlx_destroy_window(data->mlx, data->window);
 }
 
-void	free_worldmap(t_game_data *data)
+void free_worldmap(t_game_data *data)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (i < data->map_height)
-	{
-		free(data->level_map[i]);
-		i++;
-	}
-	free(data->level_map);
-	data->level_map = NULL;
+    if (!data->level_map)
+        return;
+        
+    i = 0;
+    while (i < data->map_height)
+    {
+        free(data->level_map[i]);
+        i++;
+    }
+    free(data->level_map);
+    data->level_map = NULL;
 }
 
-void	free_all(t_game_data *data, t_map *map, int flag)
+void free_all(t_game_data *data, t_map *map, int flag)
 {
-	if (flag == 1)
-		free_array_text(data);
-	display_destruction(data);
-	free_worldmap(data);
-	if (map)
-		free_map_resources(map);
+    if (!data)
+        return;
+
+    if (flag == 1)
+        free_array_text(data);
+        
+    display_destruction(data);
+    free_worldmap(data);
+    
+    if (map && flag && map->mm)
+        cleanup(map->mm);
 }
+
 
 void free_path(char **paths)
 {
-	int i;
+    int i;
 
-	i = 0;
-	while (i < 4)
-	{
-		free(paths[i]);
-		i++;
-	}
-	free(paths);
+    if (!paths)
+        return;
+        
+    i = 0;
+    while (i < 4)
+    {
+        free(paths[i]);
+        i++;
+    }
+    free(paths);
 }

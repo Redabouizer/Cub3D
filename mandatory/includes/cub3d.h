@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 02:22:40 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:03:18 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_mem
 
 typedef struct s_map
 {
+	t_mem 			**mm;
 	char			player_direction;
 	int				map_width;
 	int				map_height;

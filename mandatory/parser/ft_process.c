@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:39:07 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 19:45:15 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:32:12 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,19 +125,27 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
 
     if (!line)
         return (1);
-		
+        
     trimmed = ft_strtrim(line, "\t\n\r");
     free(line);
-	
+    
     if (!trimmed)
         return (1);
+    
     if (trimmed[0] == '\0' && !(*proc->map_started))
-        return (free(trimmed), 1);
-	
+    {
+        free(trimmed);
+        return (1);
+    }
+    
     if (!(*proc->map_started))
     {
         if (!process_metadata_line(manager, trimmed, proc))
+        {
+            free(trimmed); // Only free here if process_metadata_line fails
             return (0);
+        }
+        // Don't free trimmed here - process_metadata_line will handle it
     }
     else if (check_map(trimmed))
     {
@@ -146,11 +154,13 @@ int process_line(t_mem **manager, char *line, t_line_proc *proc)
             free(trimmed);
             return (0);
         }
+        free(trimmed); // Free after adding to map lines
     }
     else
-	{
-		printf("Error: Invalid line in map section\n");
-		return (free(trimmed), 0);
-	}
+    {
+        printf("Error: Invalid line in map section\n");
+        free(trimmed);
+        return (0);
+    }
     return (1);
 }
