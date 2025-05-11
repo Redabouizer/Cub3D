@@ -5,85 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 22:51:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/11 16:02:35 by rbouizer         ###   ########.fr       */
+/*   Created: 2025/05/11 16:20:14 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 16:58:20 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int get_color(const char *color, unsigned int *result)
+int	get_color(const char *color, unsigned int *result)
 {
-    char    **values;
-    int        vals[3];
-    int        i;
-    char    *trimmed_color;
+	char	*trimmed_color;
+	char	**values;
+	int		vals[3];
 
-    if (!color || !result)
-        return (0);
-    
-    // First, trim whitespace from the color string
-    trimmed_color = ft_strtrim(color, " \t\n\r");
-    if (!trimmed_color)
-        return (0);
-        
-    // Check if there are any invalid characters after the last digit
-    i = ft_strlen(trimmed_color) - 1;
-    while (i >= 0 && (trimmed_color[i] == ' ' || trimmed_color[i] == '\t' || 
-           trimmed_color[i] == '\n' || trimmed_color[i] == '\r'))
-        i--;
-    
-    if (i >= 0 && trimmed_color[i] == ',')
-    {
-        free(trimmed_color);
-        return (0); // Invalid: ends with a comma
-    }
-    
-    values = ft_split(trimmed_color, ',');
-    free(trimmed_color);
-    if (!values)
-        return (0);
-    
-    // Count how many values we have
-    i = 0;
-    while (values[i])
-        i++;
-    
-    // We must have exactly 3 values
-    if (i != 3)
-    {
-        free_values(values);
-        return (0);
-    }
-    
-    // Now parse the values
-    i = 0;
-    while (i < 3)
-    {
-        // Check if the value contains only digits
-        char *ptr = values[i];
-        while (*ptr)
-        {
-            if (!ft_isdigit(*ptr))
-            {
-                free_values(values);
-                return (0);
-            }
-            ptr++;
-        }
-        
-        vals[i] = ft_atoi(values[i]);
-        if (vals[i] < 0 || vals[i] > 255)
-        {
-            free_values(values);
-            return (0);
-        }
-        i++;
-    }
-    
-    *result = create_trgb(0, vals[0], vals[1], vals[2]);
-    free_values(values);
-    return (1);
+	if (!color || !result)
+		return (0);
+	trimmed_color = ft_strtrim(color, " \t\n\r");
+	if (!trimmed_color || has_trailing_comma(trimmed_color))
+	{
+		free(trimmed_color);
+		return (0);
+	}
+	values = ft_split(trimmed_color, ',');
+	free(trimmed_color);
+	if (!values)
+		return (0);
+	if (count_strings(values) != 3 || !validate_color_components(values, vals))
+	{
+		free_values(values);
+		return (0);
+	}
+	*result = create_trgb(0, vals[0], vals[1], vals[2]);
+	free_values(values);
+	return (1);
 }
 
 int	is_valid_type(char **tokens, const char *type, unsigned int *color)
