@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:31:53 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 22:42:46 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:45:19 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_map	*init_map(t_mem **manager)
 	map->ceiling_color = 0;
 	map->file_content = NULL;
 	map->map = NULL;
+    map->mm = manager;
 	map->north_texture = NULL;
 	map->south_texture = NULL;
 	map->west_texture = NULL;

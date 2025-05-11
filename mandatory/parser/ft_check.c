@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/11 02:36:49 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:43:47 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int validate_map(t_mem **mm, const char *file)
         return (get_next_line(-1, true),-1);
     map = parse_map_file(mm, file);
     if (!map)
-        return (free_map_resources(map),-1);
+        return (-1);
     
     if (!play_rey(map))
         return (-1);
