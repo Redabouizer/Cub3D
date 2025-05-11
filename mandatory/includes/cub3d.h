@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 21:41:08 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 02:36:25 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,7 @@ void	pad_map_line(t_mem **m, t_map *map, char **lines, int i);
 
 /*   ft_data.c                                          :+:      :+:    :+:   */
 int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
-int		set_texture(char **texture, char *line);
-
+int set_texture(char **texture, char *line);
 /*   ft_texture.c                                       :+:      :+:    :+:   */
 int load_textures(t_game_data *data, t_map *map);
 

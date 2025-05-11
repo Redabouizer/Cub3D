@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 18:45:34 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/05 23:25:40 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/10 23:32:14 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*read_fd(int fd)
 {
 	char	*str;
 
-	str = get_next_line(fd);
+	str = get_next_line(fd, false);
 	return (str);
 }
 

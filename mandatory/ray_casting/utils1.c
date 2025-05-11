@@ -47,7 +47,8 @@ void free_map_resources(t_map *map)
 {
     int i;
 
-    if (!map)
+    get_next_line(-1, true);
+    if (!map)  
         return;
 
     if (map->map)
