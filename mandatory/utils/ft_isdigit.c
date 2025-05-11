@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/11 16:03:34 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:03:36 by rbouizer         ###   ########.fr       */
+/*   Created: 2025/05/11 18:33:45 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 18:33:47 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/utils.h"
 
 int	ft_isdigit(int c)
 {

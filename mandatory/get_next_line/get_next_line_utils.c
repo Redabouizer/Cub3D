@@ -6,13 +6,13 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:19:32 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/03/23 07:19:07 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:39:01 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
-int	ft_strlen(const char *str) // 1
+int	ft_strlen(const char *str)
 {
 	int	len;
 

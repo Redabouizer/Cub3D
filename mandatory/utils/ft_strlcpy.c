@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/12 02:20:56 by rbouizer          #+#    #+#             */
-/*   Updated: 2024/07/25 21:59:51 by rbouizer         ###   ########.fr       */
+/*   Created: 2025/05/11 18:34:43 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 18:34:44 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../includes/utils.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

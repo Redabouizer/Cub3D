@@ -6,11 +6,11 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:19:41 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/10 23:29:00 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:38:52 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
 static char	*red_line(char *str, size_t *len)
 {
@@ -79,12 +79,13 @@ static char	*save_all(char *save, int fd)
 	free(str);
 	return (save);
 }
+
 char	*get_next_line(int fd, bool isfree)
 {
 	static char	*save;
 	char		*line;
 	size_t		len;
-	
+
 	if (isfree == true)
 		return (free (save), NULL);
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 0)

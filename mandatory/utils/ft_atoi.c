@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 11:22:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 11:25:55 by marvin           ###   ########.fr       */
+/*   Created: 2025/05/11 18:33:30 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 18:33:32 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../includes/utils.h"
 
 int	ft_atoi(const char *str)
 {
