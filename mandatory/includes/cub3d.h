@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 17:27:47 by rbouizer         ###   ########.fr       */
+/*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 18:30:16 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../utils/utils.h"
+# include "utils.h"
 # include "../../mlx_linux/mlx.h"
 # include <math.h>
 # include <stdio.h>

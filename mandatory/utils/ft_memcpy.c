@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 11:25:42 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 11:25:42 by marvin           ###   ########.fr       */
+/*   Created: 2025/05/11 18:33:52 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 18:33:53 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../includes/utils.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/11 16:53:00 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/11 18:36:02 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ SRCS = \
 OBJ_DIR = objects
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-HEADER = mandatory/includes/cub3d.h mandatory/get_next_line/get_next_line.h mandatory/utils/utils.h
+HEADER = mandatory/includes/cub3d.h mandatory/includes/get_next_line.h mandatory/includes/utils.h
 
 all: $(NAME)
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 11:25:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/07 11:25:35 by marvin           ###   ########.fr       */
+/*   Created: 2025/05/11 18:33:58 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 18:34:00 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../includes/utils.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {
