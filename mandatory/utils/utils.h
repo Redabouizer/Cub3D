@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:48:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/07 11:23:06 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/11 16:04:03 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 # include "../get_next_line/get_next_line.h"
 
 char	**ft_split(char const *s, char c);
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strtrim(char const *s1, char const *set);
 int		ft_atoi(const char *str);
+int     ft_isdigit(int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);

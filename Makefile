@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/11 15:50:29 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/11 16:04:46 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS = \
 	mandatory/utils/ft_strncmp.c\
 	mandatory/utils/ft_strjoin_mm.c\
 	mandatory/utils/ft_split_mm.c\
+	mandatory/utils/ft_isdigit.c\
 	mandatory/utils/ft_atoi.c\
 	mandatory/utils/ft_strtrim.c\
 	mandatory/utils/ft_substr.c\

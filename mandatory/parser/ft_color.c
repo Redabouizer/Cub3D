@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:51:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 22:58:51 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:02:35 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,30 @@ int get_color(const char *color, unsigned int *result)
     char    **values;
     int        vals[3];
     int        i;
+    char    *trimmed_color;
 
     if (!color || !result)
         return (0);
-    values = ft_split(color, ',');
+    
+    // First, trim whitespace from the color string
+    trimmed_color = ft_strtrim(color, " \t\n\r");
+    if (!trimmed_color)
+        return (0);
+        
+    // Check if there are any invalid characters after the last digit
+    i = ft_strlen(trimmed_color) - 1;
+    while (i >= 0 && (trimmed_color[i] == ' ' || trimmed_color[i] == '\t' || 
+           trimmed_color[i] == '\n' || trimmed_color[i] == '\r'))
+        i--;
+    
+    if (i >= 0 && trimmed_color[i] == ',')
+    {
+        free(trimmed_color);
+        return (0); // Invalid: ends with a comma
+    }
+    
+    values = ft_split(trimmed_color, ',');
+    free(trimmed_color);
     if (!values)
         return (0);
     
@@ -40,6 +60,18 @@ int get_color(const char *color, unsigned int *result)
     i = 0;
     while (i < 3)
     {
+        // Check if the value contains only digits
+        char *ptr = values[i];
+        while (*ptr)
+        {
+            if (!ft_isdigit(*ptr))
+            {
+                free_values(values);
+                return (0);
+            }
+            ptr++;
+        }
+        
         vals[i] = ft_atoi(values[i]);
         if (vals[i] < 0 || vals[i] > 255)
         {
