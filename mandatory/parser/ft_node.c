@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 22:31:53 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/11 15:45:19 by rbouizer         ###   ########.fr       */
+/*   Created: 2025/05/11 16:33:40 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 17:08:26 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_map	*init_map(t_mem **manager)
 	map->ceiling_color = 0;
 	map->file_content = NULL;
 	map->map = NULL;
-    map->mm = manager;
+	map->mm = manager;
 	map->north_texture = NULL;
 	map->south_texture = NULL;
 	map->west_texture = NULL;
@@ -36,43 +36,38 @@ t_map	*init_map(t_mem **manager)
 	return (map);
 }
 
-int add_map_line(t_mem **manager, char ***lines, char *trimmed, int *count)
+int	add_map_line(t_mem **manager, char ***lines, char *trimmed, int *count)
 {
-    char    **new_lines;
-    int     i;
+	char	**new_lines;
+	int		i;
 
-    if (!manager || !lines || !trimmed || !count)
-        return 0;
-        
-    new_lines = my_malloc(manager, sizeof(char *) * (*count + 2));
-    if (!new_lines)
-        return 0;
-        
-    i = 0;
-    while (i < *count)
-    {
-        new_lines[i] = (*lines)[i];
-        i++;
-    }
-    
-    new_lines[*count] = my_malloc(manager, ft_strlen(trimmed) + 1);
-    if (!new_lines[*count])
-    {
-        free(new_lines);
-        return 0;
-    }
-    
-    ft_strlcpy(new_lines[*count], trimmed, ft_strlen(trimmed) + 1);
-    (*count)++;
-    new_lines[*count] = NULL;
-    *lines = new_lines;
-    return 1;
+	if (!manager || !lines || !trimmed || !count)
+		return (0);
+	new_lines = my_malloc(manager, sizeof(char *) * (*count + 2));
+	if (!new_lines)
+		return (0);
+	i = 0;
+	while (i < *count)
+	{
+		new_lines[i] = (*lines)[i];
+		i++;
+	}
+	new_lines[*count] = my_malloc(manager, ft_strlen(trimmed) + 1);
+	if (!new_lines[*count])
+		return (free(new_lines), 0);
+	ft_strlcpy(new_lines[*count], trimmed, ft_strlen(trimmed) + 1);
+	(*count)++;
+	new_lines[*count] = NULL;
+	*lines = new_lines;
+	return (1);
 }
 
 int	free_values(char **values)
 {
 	int	i;
 
+	if (!values)
+		return (0);
 	i = 0;
 	while (values && values[i])
 		free(values[i++]);
@@ -80,10 +75,10 @@ int	free_values(char **values)
 	return (0);
 }
 
-void cleanup_map_lines(char *first_map_line, char *last_map_line)
+void	cleanup_map_lines(char *first_map_line, char *last_map_line)
 {
-    if (first_map_line)
-        free(first_map_line);
-    if (last_map_line)
-        free(last_map_line);
+	if (first_map_line)
+		free(first_map_line);
+	if (last_map_line)
+		free(last_map_line);
 }

@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 20:09:49 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 02:36:25 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:07:47 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,11 @@ char	**ft_split_mm(t_mem **manager, char const *s, char c);
 /*   ft_check.c                                         :+:      :+:    :+:   */
 int		validate_wrapper(char *trim, int *mp_end, char **lst_mp_l);
 int		validate_state(char *first_map_line, char *last_map_line);
+
+int	check_texture(const char *path);
+int	has_trailing_comma(const char *trimmed);
+int	validate_color_components(char **values, int vals[3]);
+
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 int		check_map(const char *str);
 int		check_ext(char *file);
@@ -232,7 +237,7 @@ int		check_player_count(char *trimmed, int *ply_count);
 
 /*   ft_node.c                                          :+:      :+:    :+:   */
 void	cleanup_map_lines(char *first_map_line, char *last_map_line);
-int		free_values(char **values);
+int free_values(char **values);
 int add_map_line(t_mem **manager, char ***lines, char *trimmed, int *count);
 
 /*   ft_map.c                                           :+:      :+:    :+:   */
@@ -247,10 +252,12 @@ int		process_meta_line(char *trimmed, int *tab);
 
 /*   ft_color.c                                         :+:      :+:    :+:   */
 void	pad_map_line(t_mem **m, t_map *map, char **lines, int i);
+int	count_strings(char **values);
 
 /*   ft_data.c                                          :+:      :+:    :+:   */
 int process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
 int set_texture(char **texture, char *line);
+int	validate_map_borders(const char *line);
 /*   ft_texture.c                                       :+:      :+:    :+:   */
 int load_textures(t_game_data *data, t_map *map);
 

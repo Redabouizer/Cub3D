@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/11 16:04:46 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/11 16:53:00 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS = \
 	mandatory/parser/ft_helps.c\
 	mandatory/parser/mem.c\
 	mandatory/parser/ft_check.c\
+	mandatory/parser/ft_check_pro.c\
 	mandatory/parser/ft_node.c\
 	mandatory/parser/ft_color.c\
 	mandatory/parser/ft_data.c\

@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_player.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 23:35:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/05 23:35:47 by marvin           ###   ########.fr       */
+/*   Created: 2025/05/11 16:35:04 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/11 17:07:08 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	count_strings(char **values)
+{
+	int	count;
+
+	count = 0;
+	if (!values)
+		return (0);
+	while (values[count])
+		count++;
+	return (count);
+}
 
 void	process_player_pos(t_map *map, char *line, int y)
 {
