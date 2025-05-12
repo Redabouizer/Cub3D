@@ -1,0 +1,13 @@
+NO  mandatory/textures/north.xpm
+SO mandatory/textures/south.xpm
+WE mandatory/textures/west.xpm
+
+EA mandatory/textures/east.xpm
+
+F 25,100,00
+C 000000225,30,10
+
+     11 11111
+    10N101
+    111111
+    1111111111111

@@ -24,7 +24,6 @@ void compute_steps(t_game_data *data, t_ray *ray_info)
         ray_info->step_x = 1;
         ray_info->side_distance_x = (ray_info->map_x + 1.0 - data->player.position_x) * ray_info->delta_distance_x;
     }
-
     if (ray_info->ray_direction_y < 0)
     {
         ray_info->step_y = -1;
@@ -40,9 +39,7 @@ void compute_steps(t_game_data *data, t_ray *ray_info)
 void determine_texture(int *is_door, int *texture_num, t_ray *ray_info)
 {
     if (*is_door)
-    {
         *texture_num = 4;
-    }
     else if (ray_info->side == 0)
     {
         *texture_num = (ray_info->ray_direction_x > 0) ? 2 : 3;
