@@ -6,11 +6,22 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:20:24 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 18:32:36 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/12 11:34:56 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	retrieve_texture_color(t_texture *texture, int y, int x)
+{
+	char	*destination;
+
+	if (!texture || !texture->addr)
+		return (0xFF0000);
+	destination = texture->addr + (y * texture->line_length
+			+ x * (texture->bits_per_pixel / 8));
+	return (*(unsigned int *)destination);
+}
 
 int	create_trgb(int t, int r, int g, int b)
 {
@@ -41,6 +52,8 @@ int	process_metadata(t_map *map, char *line)
 		return (get_color(line + 2, &map->floor_color));
 	else if (!ft_strncmp(line, "C ", 2))
 		return (get_color(line + 2, &map->ceiling_color));
+	else if (!check_texture("bonus/textures/door.xpm"))
+		return (printf("Error: Texture Door not found"), 0);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/12 01:29:41 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/12 11:35:14 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 # define DOWN_LINUX 65364
 # define LEFT_LINUX 65361
 # define RIGHT_LINUX 65363
-
 //********************Struct parser*********************************//
 typedef struct s_parser
 {
@@ -237,6 +236,10 @@ int		process_metadata_line(t_mem **manager, char *trim, t_line_proc *proc);
 int		set_texture(char **texture, char *line);
 int		validate_map_borders(const char *line);
 int		load_textures(t_game_data *data, t_map *map);
+int		get_texture_color(t_texture *texture, int y, int x);
+int		retrieve_texture_color(t_texture *texture, int y, int x);
+char	**allocate_texture_paths(t_game_data *data, t_map *map);
+void	cleanup_textures(t_game_data *data, size_t loaded_count);
 
 //********************Prototype Ray Casting*********************************//
 int		is_door_accessible(t_game_data *game_data, int x_coord, int y_coord);

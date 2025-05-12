@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:54:32 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 21:34:18 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/12 02:48:20 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,20 @@ void	*my_malloc(t_mem **manager, size_t size)
 	return (ptr);
 }
 
-void cleanup(t_mem **manager) {
-    t_mem *current;
-    t_mem *next;
+void	cleanup(t_mem **manager)
+{
+	t_mem	*current;
+	t_mem	*next;
 
-    if (!manager) return;
-    
-    current = *manager;
-    while (current != NULL) {
-        next = current->next;
-        free(current->ptr);
-        free(current);
-        current = next;
-    }
-    *manager = NULL;
+	if (!manager)
+		return ;
+	current = *manager;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->ptr);
+		free(current);
+		current = next;
+	}
+	*manager = NULL;
 }

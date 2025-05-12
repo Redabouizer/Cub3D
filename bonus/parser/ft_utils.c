@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:54:25 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:54:27 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/12 02:16:03 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	validate_continuous_ones(const char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] != '1')
+		if (line[i] != '1' && line[i] != ' ')
 			return (0);
 		i++;
 	}

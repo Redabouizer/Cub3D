@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:27:42 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:31:55 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/12 02:21:08 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ int	check_zero_space(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == '0' && !zero_space(map, i, j))
+			if ((map[i][j] == '0' || map[i][j] == 'N'
+				|| map[i][j] == 'S' || map[i][j] == 'E'
+				|| map[i][j] == 'W') && !zero_space(map, i, j))
 				return (0);
 			j++;
 		}

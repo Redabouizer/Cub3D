@@ -6,15 +6,15 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/11 21:09:43 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/12 11:18:38 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
-B_NAME = cub3D_bonus
+B_NAME = cub3d_bonus
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address,leak,undefined
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address,leak,undefined
 
 # Linux MLX configuration (updated paths)
 MLX_DIR = ./mlx_linux
@@ -104,6 +104,7 @@ B_SRCS = \
 	bonus/parser/ft_utils.c\
 	bonus/parser/ft_texture.c\
 	bonus/parser/test.c\
+	bonus/parser/ft_allocate.c\
 	bonus/main.c\
 	bonus/ray_casting/cleaner.c\
 	bonus/ray_casting/collision_detection.c\

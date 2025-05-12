@@ -6,11 +6,32 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:20:14 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:58:20 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/12 11:35:00 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	get_texture_color(t_texture *texture, int y, int x)
+{
+	char	*dst;
+
+	if (!texture || !texture->img || !texture->addr)
+		return (0xFF0000);
+	if (x < 0)
+		x = 0;
+	if (y < 0)
+		y = 0;
+	if (x >= TEXTURE_SIZE)
+		x = TEXTURE_SIZE - 1;
+	if (y >= TEXTURE_SIZE)
+		y = TEXTURE_SIZE - 1;
+	dst = texture->addr + (y * texture->line_length
+			+ x * (texture->bits_per_pixel / 8));
+	if (!dst)
+		return (0xFF0000);
+	return (*(unsigned int *)dst);
+}
 
 int	get_color(const char *color, unsigned int *result)
 {

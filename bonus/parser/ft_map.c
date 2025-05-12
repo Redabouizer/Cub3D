@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:32:42 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:33:18 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/12 02:23:41 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	process_map_lines(t_mem **manager, int fd, t_map *map)
 		line = read_fd(fd);
 	}
 	if (map_lines && !check_zero_space(map_lines))
-		return (ft_putendl_fd("Error: Invalid space around '0' in map", 2), 0);
+		return (ft_putendl_fd("Error: Invalid space in map", 2), 0);
 	finalize_map(manager, map, map_lines, map_line_count);
 	return (1);
 }
