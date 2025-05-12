@@ -53,7 +53,9 @@ int handle_mouse_move(int x, int y, t_game_data *data)
     }
     delta_x = x - last_x;
     if (abs(delta_x) > 0)
+    {
         adjust_fov(data, delta_x);
+    }
     last_x = x;
     return (0);
 }
@@ -70,6 +72,8 @@ int handle_key_press(int keycode, t_game_data *data)
         free_all(data, NULL, 1);
         exit(0);
     }
+    else if (keycode == SPACE_LINUX) 
+        interact_with_door(data);
     else
     {
         if (keycode == W || keycode == UP_LINUX)

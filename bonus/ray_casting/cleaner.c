@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:39:44 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 21:14:36 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:36:09 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_array_text(t_game_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		if (data->textures[i].img)
 			mlx_destroy_image(data->mlx, data->textures[i].img);
@@ -102,7 +102,7 @@ void	free_path(char **paths)
 	if (!paths)
 		return ;
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		free(paths[i]);
 		i++;
