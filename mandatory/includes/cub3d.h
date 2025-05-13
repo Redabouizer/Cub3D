@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/12 02:46:35 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/13 01:35:16 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,5 +291,8 @@ void	free_map_resources(t_map *map);
 void	display_destruction(t_game_data *data);
 void	free_all(t_game_data *data, t_map *map, int flag);
 void	free_path(char **paths);
+void	free_map_array(t_map *map);
+void	free_file_content(t_map *map);
+void	free_textures(t_map *map);
 
 #endif

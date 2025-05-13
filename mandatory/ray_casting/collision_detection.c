@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:43:19 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 18:46:00 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/13 00:35:24 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	detect_collision_side(t_game_data *game_data, double target_x, double target
 	}
 	direction_x /= movement_distance;
 	direction_y /= movement_distance;
-
 	initialize_collision_ray(&collision_ray, game_data->player.position_x, game_data->player.position_y, direction_x, direction_y);
 	collision_found = 0;
 	max_iterations = 20;
@@ -96,7 +95,6 @@ int	detect_collision_side(t_game_data *game_data, double target_x, double target
 			collision_ray.map_y += collision_ray.step_y;
 			collision_ray.side = 1;
 		}
-
 		if (collision_ray.map_x < 0 || collision_ray.map_x >= game_data->map_width
 			|| collision_ray.map_y < 0 || collision_ray.map_y >= game_data->map_height)
 		{
@@ -115,41 +113,36 @@ int	detect_collision_side(t_game_data *game_data, double target_x, double target
 		}
 		max_iterations--;
 	}
-
 	if (collision_ray.side == 0)
 		*collision_distance = (collision_ray.map_x - game_data->player.position_x + (1 - collision_ray.step_x) / 2) / collision_ray.ray_direction_x;
 	else
 		*collision_distance = (collision_ray.map_y - game_data->player.position_y + (1 - collision_ray.step_y) / 2) / collision_ray.ray_direction_y;
-
 	if (*collision_distance > movement_distance + 0.3)
 		return (0);
-
 	return (collision_side);
 }
 
 int	is_wall_colliding(t_game_data *game_data, double target_x, double target_y)
 {
-	double collision_distance;
+	double	collision_distance;
 
-	return (detect_collision_side(game_data, target_x, target_y, &collision_distance) > 0);
+	return (detect_collision_side(game_data, target_x,
+		target_y, &collision_distance) > 0);
 }
 
 void	process_movement(t_game_data *game_data, double move_x, double move_y,
 	double speed)
 {
-	t_point new_position;
-	double length;
+	t_point	new_position;
+	double	length;
 
 	length = sqrt(move_x * move_x + move_y * move_y);
 	if (length < 0.0001)
-		return;
-
+		return ;
 	move_x /= length;
 	move_y /= length;
-
 	new_position.x_p = game_data->player.position_x + move_x * speed;
 	new_position.y_p = game_data->player.position_y + move_y * speed;
-
 	if (!is_wall_colliding(game_data, new_position.x_p, new_position.y_p))
 	{
 		game_data->player.position_x = new_position.x_p;
