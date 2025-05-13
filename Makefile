@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/13 02:30:09 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/13 05:39:13 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,14 +110,19 @@ B_SRCS = \
 	bonus/parser/test.c\
 	bonus/parser/ft_allocate.c\
 	bonus/ray_casting/cleaner.c\
+	bonus/ray_casting/cleaner_pro.c\
 	bonus/ray_casting/collision_detection.c\
+	bonus/ray_casting/collision_detection_pro.c\
 	bonus/ray_casting/door_interaction.c\
+	bonus/ray_casting/events_pro.c\
 	bonus/ray_casting/events.c\
 	bonus/ray_casting/game_r_casting_helper.c\
 	bonus/ray_casting/game_ray_casting.c\
 	bonus/ray_casting/player_rotate_and_texture.c\
 	bonus/ray_casting/setuping.c\
 	bonus/ray_casting/utils1.c\
+	bonus/ray_casting/utils2.c\
+	bonus/ray_casting/move.c\
 	bonus/main.c
 
 OBJ_DIR = objects

@@ -1,78 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   door_interaction.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 05:26:29 by rbouizer          #+#    #+#             */
+/*   Updated: 2025/05/13 06:31:47 by rbouizer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
-void	interact_with_door(t_game_data *game_data)
+int	is_door_accessible(t_game_data *game_data, int x_coord, int y_coord)
 {
-	// int		door_x;
-	// int		door_y;
-	double	direct_x;
-	double	direct_y;
-	// double	door_distance;
-	
-	// Cast a ray in the player's view direction to locate a door
-	direct_x = game_data->player.direction_x;
-	direct_y = game_data->player.direction_y;
-	
-	// Initialize the ray for door detection
-	t_ray ray;
-	initialize_collision_ray(&ray, game_data->player.position_x, game_data->player.position_y, direct_x, direct_y);
-	
-	int door_found = 0;
-	int max_iterations = 10;  // Limited range for door interaction
-	
-	// Locate the door using raycasting
-	while (!door_found && max_iterations > 0)
+	if (x_coord < 0 || x_coord >= game_data->map_width
+		|| y_coord < 0 || y_coord >= game_data->map_height)
+		return (0);
+	return (game_data->level_map[y_coord][x_coord] == 3);
+}
+
+void	insert_doors_into_map(t_game_data *data)
+{
+	int	row;
+	int	col;
+
+	row = 1;
+	while (row < data->map_height - 1)
 	{
-		if (ray.side_distance_x < ray.side_distance_y)
+		col = 1;
+		while (col < data->map_width - 1)
 		{
-			ray.side_distance_x += ray.delta_distance_x;
-			ray.map_x += ray.step_x;
-			ray.side = 0;
+			if (data->level_map[row][col] == 0)
+			{
+				if (data->level_map[row][col - 1] == 1 \
+						&& data->level_map[row][col + 1] == 1)
+					data->level_map[row][col] = 2;
+				else if (data->level_map[row - 1][col] == 1 \
+						&& data->level_map[row + 1][col] == 1)
+					data->level_map[row][col] = 2;
+			}
+			col++;
 		}
-		else
-		{
-			ray.side_distance_y += ray.delta_distance_y;
-			ray.map_y += ray.step_y;
-			ray.side = 1;
-		}
-		
-		if (ray.map_x < 0 || ray.map_x >= game_data->map_width ||
-			ray.map_y < 0 || ray.map_y >= game_data->map_height)
-			break;
-			
-		// Check if a door was found
-		if (game_data->level_map[ray.map_y][ray.map_x] == 2)  // Closed door
-		{
-			game_data->level_map[ray.map_y][ray.map_x] = 3;  // Open the door
-			door_found = 1;
-		}
-		else if (game_data->level_map[ray.map_y][ray.map_x] == 3)  // Open door
-		{
-			game_data->level_map[ray.map_y][ray.map_x] = 2;  // Close the door
-			door_found = 1;
-		}
-		else if (game_data->level_map[ray.map_y][ray.map_x] == 1)  // Wall
-			break;
-			
-		max_iterations--;
+		row++;
 	}
 }
 
-void	move_forward(t_game_data *game_data, t_event event)
+void	update_ray_position(t_ray *ray)
 {
-	process_movement(game_data, game_data->player.direction_x, game_data->player.direction_y, event.movement_speed);
+	if (ray->side_distance_x < ray->side_distance_y)
+	{
+		ray->side_distance_x += ray->delta_distance_x;
+		ray->map_x += ray->step_x;
+		ray->side = 0;
+	}
+	else
+	{
+		ray->side_distance_y += ray->delta_distance_y;
+		ray->map_y += ray->step_y;
+		ray->side = 1;
+	}
 }
 
-void	move_backward(t_game_data *game_data, t_event event)
+int	check_door_status(t_game_data *game_data, t_ray *ray)
 {
-	process_movement(game_data, -game_data->player.direction_x, -game_data->player.direction_y, event.movement_speed);
+	if (game_data->level_map[ray->map_y][ray->map_x] == 2)
+	{
+		game_data->level_map[ray->map_y][ray->map_x] = 3;
+		return (1);
+	}
+	else if (game_data->level_map[ray->map_y][ray->map_x] == 3)
+	{
+		game_data->level_map[ray->map_y][ray->map_x] = 2;
+		return (1);
+	}
+	return (0);
 }
 
-void	move_rightward(t_game_data *game_data, t_event event)
+void	interact_with_door(t_game_data *game_data)
 {
-	process_movement(game_data, game_data->player.plane_x, game_data->player.plane_y, event.movement_speed);
-}
+	t_ray		ray;
+	int			door_found;
+	int			max_iterations;
+	t_ray_init	init;
 
-void	move_leftward(t_game_data *game_data, t_event event)
-{
-	process_movement(game_data, -game_data->player.plane_x, -game_data->player.plane_y, event.movement_speed);
+	init.start_x = game_data->player.position_x;
+	init.start_y = game_data->player.position_y;
+	init.direction_x = game_data->player.direction_x;
+	init.direction_y = game_data->player.direction_y;
+	initialize_collision_ray(&ray, &init);
+	door_found = 0;
+	max_iterations = 10;
+	while (!door_found && max_iterations-- > 0)
+	{
+		update_ray_position(&ray);
+		if (ray.map_x < 0 || ray.map_x >= game_data->map_width \
+			|| ray.map_y < 0 || ray.map_y >= game_data->map_height)
+			break ;
+		door_found = check_door_status(game_data, &ray);
+		if (game_data->level_map[ray.map_y][ray.map_x] == 1)
+			break ;
+	}
 }

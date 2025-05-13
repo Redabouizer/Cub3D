@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/13 01:35:02 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/13 21:25:56 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,21 @@ typedef struct s_texture {
 }	t_texture;
 
 //********************Struct Ray Casting*********************************//
+
+typedef struct s_dir_data
+{
+	double	dir_x;
+	double	dir_y;
+	double	move_dist;
+}	t_dir_data;
+
+typedef struct s_ray_init
+{
+	double	start_x;
+	double	start_y;
+	double	direction_x;
+	double	direction_y;
+}	t_ray_init;
 
 typedef struct s_wall_collision
 {
@@ -243,8 +258,7 @@ void	cleanup_textures(t_game_data *data, size_t loaded_count);
 
 //********************Prototype Ray Casting*********************************//
 int		is_door_accessible(t_game_data *game_data, int x_coord, int y_coord);
-void	initialize_collision_ray(t_ray *collision_ray, double start_x,
-			double start_y, double direction_x, double direction_y);
+void	initialize_collision_ray(t_ray *ray, t_ray_init *init);
 int		detect_collision_side(t_game_data *game_data, double target_x,
 			double target_y, double *collision_distance);
 int		is_wall_colliding(t_game_data *game_data,
@@ -294,5 +308,7 @@ void	free_map_resources(t_map *map);
 void	display_destruction(t_game_data *data);
 void	free_all(t_game_data *data, t_map *map, int flag);
 void	free_path(char **paths);
+void	free_textures(t_game_data *data);
+void	free_gnl(void);
 
 #endif

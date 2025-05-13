@@ -6,153 +6,89 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:43:19 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 18:46:00 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/13 06:43:28 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	is_door_accessible(t_game_data *game_data, int x_coord, int y_coord)
+static int	check_collision(t_game_data *data, t_ray *ray)
 {
-	if (x_coord < 0 || x_coord >= game_data->map_width
-		|| y_coord < 0 || y_coord >= game_data->map_height)
+	if (ray->map_x < 0 || ray->map_x >= data->map_width
+		|| ray->map_y < 0 || ray->map_y >= data->map_height)
+		return (1);
+	if (data->level_map[ray->map_y][ray->map_x] == 1)
+		return (1);
+	if (data->level_map[ray->map_y][ray->map_x] == 2
+		&& !is_door_accessible(data, ray->map_x, ray->map_y))
+		return (1);
+	return (0);
+}
+
+static void	update_ray_position(t_ray *ray)
+{
+	if (ray->side_distance_x < ray->side_distance_y)
+	{
+		ray->side_distance_x += ray->delta_distance_x;
+		ray->map_x += ray->step_x;
+		ray->side = 0;
+	}
+	else
+	{
+		ray->side_distance_y += ray->delta_distance_y;
+		ray->map_y += ray->step_y;
+		ray->side = 1;
+	}
+}
+
+static void	calculate_collision_distance(t_game_data *data, t_ray *ray, \
+			double *dist)
+{
+	if (ray->side == 0)
+		*dist = (ray->map_x - data->player.position_x
+				+ (1 - ray->step_x) / 2) / ray->ray_direction_x;
+	else
+		*dist = (ray->map_y - data->player.position_y
+				+ (1 - ray->step_y) / 2) / ray->ray_direction_y;
+}
+
+void	init_direction(t_dir_data *dir, t_game_data *data, \
+						double target_x, double target_y)
+{
+	dir->dir_x = target_x - data->player.position_x;
+	dir->dir_y = target_y - data->player.position_y;
+	dir->move_dist = sqrt(dir->dir_x * dir->dir_x + dir->dir_y * dir->dir_y);
+	if (dir->move_dist >= 0.0001)
+	{
+		dir->dir_x /= dir->move_dist;
+		dir->dir_y /= dir->move_dist;
+	}
+}
+
+int	detect_collision_side(t_game_data *data, double target_x, double target_y,
+						double *collision_dist)
+{
+	t_ray		ray;
+	t_dir_data	dir;
+	t_ray_init	init;
+	int			iterations;
+
+	dir.dir_x = target_x - data->player.position_x;
+	dir.dir_y = target_y - data->player.position_y;
+	dir.move_dist = sqrt(dir.dir_x * dir.dir_x + dir.dir_y * dir.dir_y);
+	if (dir.move_dist < 0.0001)
+		return (*collision_dist = 0, 0);
+	if (dir.move_dist >= 0.0001)
+		(1) && (dir.dir_x /= dir.move_dist, dir.dir_y /= dir.move_dist);
+	init.start_x = data->player.position_x;
+	init.start_y = data->player.position_y;
+	(1) && (init.direction_x = dir.dir_x, init.direction_y = dir.dir_y);
+	initialize_collision_ray(&ray, &init);
+	iterations = 20;
+	while (iterations-- > 0 && !check_collision(data, &ray))
+		update_ray_position(&ray);
+	calculate_collision_distance(data, &ray, collision_dist);
+	if (*collision_dist > dir.move_dist + 0.3)
 		return (0);
-	return (game_data->level_map[y_coord][x_coord] == 3);
-}
-
-void	initialize_collision_ray(t_ray *collision_ray, double start_x,
-	double start_y, double direction_x, double direction_y)
-{
-	collision_ray->ray_direction_x = direction_x;
-	collision_ray->ray_direction_y = direction_y;
-	collision_ray->map_x = (int)start_x;
-	collision_ray->map_y = (int)start_y;
-	if (collision_ray->ray_direction_x == 0)
-		collision_ray->delta_distance_x = 1e30;
-	else
-		collision_ray->delta_distance_x = fabs(1 / collision_ray->ray_direction_x);
-	if (collision_ray->ray_direction_y == 0)
-		collision_ray->delta_distance_y = 1e30;
-	else
-		collision_ray->delta_distance_y = fabs(1 / collision_ray->ray_direction_y);
-	if (collision_ray->ray_direction_x < 0)
-	{
-		collision_ray->step_x = -1;
-		collision_ray->side_distance_x = (start_x - collision_ray->map_x) * collision_ray->delta_distance_x;
-	}
-	else
-	{
-		collision_ray->step_x = 1;
-		collision_ray->side_distance_x = (collision_ray->map_x + 1.0 - start_x) * collision_ray->delta_distance_x;
-	}
-	if (collision_ray->ray_direction_y < 0)
-	{
-		collision_ray->step_y = -1;
-		collision_ray->side_distance_y = (start_y - collision_ray->map_y) * collision_ray->delta_distance_y;
-	}
-	else
-	{
-		collision_ray->step_y = 1;
-		collision_ray->side_distance_y = (collision_ray->map_y + 1.0 - start_y) * collision_ray->delta_distance_y;
-	}
-}
-
-int	detect_collision_side(t_game_data *game_data, double target_x, double target_y, double *collision_distance)
-{
-	t_ray	collision_ray;
-	double	direction_x;
-	double	direction_y;
-	double	movement_distance;
-	int		collision_found;
-	int		max_iterations;
-	int		collision_side;
-
-	direction_x = target_x - game_data->player.position_x;
-	direction_y = target_y - game_data->player.position_y;
-	movement_distance = sqrt(direction_x * direction_x + direction_y * direction_y);
-	if (movement_distance < 0.0001)
-	{
-		*collision_distance = 0;
-		return (0);
-	}
-	direction_x /= movement_distance;
-	direction_y /= movement_distance;
-
-	initialize_collision_ray(&collision_ray, game_data->player.position_x, game_data->player.position_y, direction_x, direction_y);
-	collision_found = 0;
-	max_iterations = 20;
-	collision_side = 0;
-	while (collision_found == 0 && max_iterations > 0)
-	{
-		if (collision_ray.side_distance_x < collision_ray.side_distance_y)
-		{
-			collision_ray.side_distance_x += collision_ray.delta_distance_x;
-			collision_ray.map_x += collision_ray.step_x;
-			collision_ray.side = 0;
-		}
-		else
-		{
-			collision_ray.side_distance_y += collision_ray.delta_distance_y;
-			collision_ray.map_y += collision_ray.step_y;
-			collision_ray.side = 1;
-		}
-
-		if (collision_ray.map_x < 0 || collision_ray.map_x >= game_data->map_width
-			|| collision_ray.map_y < 0 || collision_ray.map_y >= game_data->map_height)
-		{
-			collision_found = 1;
-			collision_side = collision_ray.side + 1;
-		}
-		else if (game_data->level_map[collision_ray.map_y][collision_ray.map_x] == 1)
-		{
-			collision_found = 1;
-			collision_side = collision_ray.side + 1;
-		}
-		else if (game_data->level_map[collision_ray.map_y][collision_ray.map_x] == 2 && !is_door_accessible(game_data, collision_ray.map_x, collision_ray.map_y))
-		{
-			collision_found = 1;
-			collision_side = collision_ray.side + 1;
-		}
-		max_iterations--;
-	}
-
-	if (collision_ray.side == 0)
-		*collision_distance = (collision_ray.map_x - game_data->player.position_x + (1 - collision_ray.step_x) / 2) / collision_ray.ray_direction_x;
-	else
-		*collision_distance = (collision_ray.map_y - game_data->player.position_y + (1 - collision_ray.step_y) / 2) / collision_ray.ray_direction_y;
-
-	if (*collision_distance > movement_distance + 0.3)
-		return (0);
-
-	return (collision_side);
-}
-
-int	is_wall_colliding(t_game_data *game_data, double target_x, double target_y)
-{
-	double collision_distance;
-
-	return (detect_collision_side(game_data, target_x, target_y, &collision_distance) > 0);
-}
-
-void	process_movement(t_game_data *game_data, double move_x, double move_y,
-	double speed)
-{
-	t_point new_position;
-	double length;
-
-	length = sqrt(move_x * move_x + move_y * move_y);
-	if (length < 0.0001)
-		return;
-
-	move_x /= length;
-	move_y /= length;
-
-	new_position.x_p = game_data->player.position_x + move_x * speed;
-	new_position.y_p = game_data->player.position_y + move_y * speed;
-
-	if (!is_wall_colliding(game_data, new_position.x_p, new_position.y_p))
-	{
-		game_data->player.position_x = new_position.x_p;
-		game_data->player.position_y = new_position.y_p;
-	}
+	return (ray.side + 1);
 }
