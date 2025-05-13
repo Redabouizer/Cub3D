@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 22:50:48 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/13 01:41:32 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/13 02:44:23 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int	handle_key_press(int keycode, t_game_data *data)
 	ft_memset(&event, 0, sizeof(t_event));
 	event.movement_speed = PLAYER_MOVE_SPEED;
 	if (keycode == ESC_LINUX)
-	{
-		free_all(data, NULL, 1);
-		exit(0);
-	}
+		close_window(data);
 	else
 	{
 		if (keycode == W || keycode == UP_LINUX)

@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/13 01:42:11 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/13 02:30:09 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,17 +60,19 @@ SRCS = \
 	mandatory/parser/ft_texture.c\
 	mandatory/parser/test.c\
 	mandatory/ray_casting/cleaner.c\
+	mandatory/ray_casting/cleaner_pro.c\
 	mandatory/ray_casting/collision_detection.c\
+	mandatory/ray_casting/collision_detection_pro.c\
 	mandatory/ray_casting/door_interaction.c\
 	mandatory/ray_casting/events.c\
+	mandatory/ray_casting/events_pro.c\
 	mandatory/ray_casting/game_r_casting_helper.c\
 	mandatory/ray_casting/game_ray_casting.c\
 	mandatory/ray_casting/player_rotate_and_texture.c\
 	mandatory/ray_casting/setuping.c\
 	mandatory/ray_casting/utils1.c\
 	mandatory/ray_casting/utils2.c\
-	mandatory/ray_casting/events_pro.c\
-	mandatory/main.c\
+	mandatory/main.c
 
 B_SRCS = \
 	bonus/get_next_line/get_next_line.c\
