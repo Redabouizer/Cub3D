@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/13 21:25:56 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/14 01:25:35 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ t_map	*init_map(t_mem **manager);
 void	*my_malloc(t_mem **manager, size_t size);
 void	cleanup(t_mem **manager);
 int		create_trgb(int t, int r, int g, int b);
-int		check_zero_space(char **map);
+int		check_zero_space(t_map *map);
 int		validate_map(t_mem **mm, const char *file);
 char	*ft_strjoin_mm(t_mem **manager, char const *s1, char const *s2);
 char	**ft_split_mm(t_mem **manager, char const *s, char c);
@@ -255,6 +255,7 @@ int		get_texture_color(t_texture *texture, int y, int x);
 int		retrieve_texture_color(t_texture *texture, int y, int x);
 char	**allocate_texture_paths(t_game_data *data, t_map *map);
 void	cleanup_textures(t_game_data *data, size_t loaded_count);
+void	space_to_one(t_map *map);
 
 //********************Prototype Ray Casting*********************************//
 int		is_door_accessible(t_game_data *game_data, int x_coord, int y_coord);

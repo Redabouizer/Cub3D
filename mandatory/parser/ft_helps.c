@@ -6,20 +6,20 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:27:42 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/12 02:20:39 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/14 01:30:17 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	is_valid_position(char **map, t_point pos)
+int	is_valid_position(char **map, t_point pos, int map_height)
 {
 	int	x;
 	int	y;
 
 	x = (int)pos.x_p;
 	y = (int)pos.y_p;
-	if (x < 0 || map[x] == NULL)
+	if (x < 0 || x >= map_height || map[x] == NULL)
 		return (0);
 	if (y < 0 || y >= (int)ft_strlen(map[x]))
 		return (0);
@@ -32,19 +32,19 @@ void	set_position(t_point *point, double x, double y)
 	point->y_p = y;
 }
 
-int	check_adjacent(char **map, t_point pos)
+int	check_adjacent(char **map, t_point pos, int map_height)
 {
 	int	x;
 	int	y;
 
 	x = (int)pos.x_p;
 	y = (int)pos.y_p;
-	if (!is_valid_position(map, pos))
+	if (!is_valid_position(map, pos, map_height))
 		return (0);
 	return (map[x][y] == ' ');
 }
 
-int	zero_space(char **map, int i, int j)
+int	zero_space(char **map, int i, int j, int map_height)
 {
 	t_point	up;
 	t_point	down;
@@ -55,32 +55,33 @@ int	zero_space(char **map, int i, int j)
 	set_position(&down, i + 1, j);
 	set_position(&right, i, j + 1);
 	set_position(&left, i, j - 1);
-	if (check_adjacent(map, up)
-		|| check_adjacent(map, down)
-		||check_adjacent(map, right)
-		||check_adjacent(map, left))
+	if (check_adjacent(map, up, map_height)
+		|| check_adjacent(map, down, map_height)
+		|| check_adjacent(map, right, map_height)
+		|| check_adjacent(map, left, map_height))
 	{
 		return (0);
 	}
 	return (1);
 }
 
-int	check_zero_space(char **map)
+int	check_zero_space(t_map *map_data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	if (map == NULL)
+	if (map_data->map == NULL)
 		return (1);
-	while (map[i] != NULL)
+	while (i < map_data->map_height)
 	{
 		j = 0;
-		while (map[i][j] != '\0')
+		while (map_data->map[i][j] != '\0')
 		{
-			if ((map[i][j] == '0' || map[i][j] == 'N'
-				|| map[i][j] == 'S' || map[i][j] == 'E'
-				|| map[i][j] == 'W') && !zero_space(map, i, j))
+			if ((map_data->map[i][j] == '0' || map_data->map[i][j] == 'N'
+				|| map_data->map[i][j] == 'S' || map_data->map[i][j] == 'E'
+				|| map_data->map[i][j] == 'W') && \
+				!zero_space(map_data->map, i, j, map_data->map_height))
 				return (0);
 			j++;
 		}

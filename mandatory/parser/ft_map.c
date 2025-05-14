@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:32:42 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/12 02:24:19 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/14 01:27:57 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	finalize_map(t_mem **mn, t_map *map, char **map_lines, int map_l_count)
 	while (i < map_l_count)
 	{
 		pad_map_line(mn, map, map_lines, i);
-		free(map_lines[i]);
 		i++;
 	}
 	free(map_lines);
@@ -71,9 +70,10 @@ int	process_map_lines(t_mem **manager, int fd, t_map *map)
 			return (0);
 		line = read_fd(fd);
 	}
-	if (map_lines && !check_zero_space(map_lines))
-		return (ft_putendl_fd("Error: Invalid space in map", 2), 0);
 	finalize_map(manager, map, map_lines, map_line_count);
+	if (map->map && !check_zero_space(map))
+		return (ft_putendl_fd("Error: Invalid zero in map", 2), 0);
+	space_to_one(map);
 	return (1);
 }
 
