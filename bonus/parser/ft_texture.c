@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:42:02 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/12 11:31:56 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/14 02:17:46 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	load_single_texture(t_game_data *data, char *path, size_t index)
 	if (!data->textures[index].addr)
 	{
 		printf("Error: Failed to get texture data address\n");
-		mlx_destroy_image(data->mlx, data->textures[index].img);
 		return (0);
 	}
 	return (1);
@@ -50,7 +49,6 @@ int	load_textures(t_game_data *data, t_map *map)
 	{
 		if (!load_single_texture(data, paths[index], index))
 		{
-			cleanup_textures(data, index);
 			free_path(paths);
 			return (1);
 		}
