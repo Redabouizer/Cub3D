@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:32:42 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/14 01:27:33 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/14 01:47:51 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	finalize_map(t_mem **mn, t_map *map, char **map_lines, int map_l_count)
 		pad_map_line(mn, map, map_lines, i);
 		i++;
 	}
-	free(map_lines);
 }
 
 int	process_map_lines(t_mem **manager, int fd, t_map *map)

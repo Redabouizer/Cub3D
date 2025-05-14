@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 04:47:14 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/13 04:53:19 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/14 01:58:16 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	free_map_resources(t_map *map)
 	if (!map)
 		return ;
 	free_gnl();
-	free_map_array(map);
 	free_file_content(map);
 	free_texture_paths(map);
 	free_minimap(map);
