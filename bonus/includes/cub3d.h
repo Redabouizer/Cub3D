@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/14 01:25:35 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/15 22:41:25 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,7 @@ void	release_textures(char **file_paths);
 void	render_texture(t_ray *ray_info, int x, t_wall *wall, t_game_data *data);
 void	free_map_resources(t_map *map);
 void	display_destruction(t_game_data *data);
+void	draw_minimap(t_game_data *data);
 void	free_all(t_game_data *data, t_map *map, int flag);
 void	free_path(char **paths);
 void	free_textures(t_game_data *data);
