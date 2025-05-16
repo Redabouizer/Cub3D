@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 05:06:52 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/15 22:40:42 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 11:35:07 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,14 @@ void	execute_dda(t_game_data *data, t_ray *ray_info)
 	}
 }
 
-int render_scene(t_game_data *data)
+int	render_scene(t_game_data *data)
 {
-    t_ray *ray_info;
+	t_ray	*ray_info;
 
-    ray_info = &data->raycaster;
-    render_floor_and_ceiling(data);
-    execute_dda(data, ray_info);
-    draw_minimap(data); // Add this line
-    mlx_put_image_to_window(data->mlx, data->window, data->img, 0, 0);
-    return (0);
+	ray_info = &data->raycaster;
+	render_floor_and_ceiling(data);
+	execute_dda(data, ray_info);
+	draw_minimap(data);
+	mlx_put_image_to_window(data->mlx, data->window, data->img, 0, 0);
+	return (0);
 }
-

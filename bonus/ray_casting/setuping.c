@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 03:44:17 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/13 05:00:40 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 01:30:58 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	setup_data(t_game_data *data, t_map *map)
 		exit(EXIT_FAILURE);
 	}
 	data->window = mlx_new_window(data->mlx, \
-		SCREEN_WIDTH, SCREEN_HEIGHT, "Raycaster");
+		SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	if (!data->window)
 	{
 		printf("Failed to create new window!\n");

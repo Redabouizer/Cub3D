@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/15 22:41:25 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 11:35:59 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define DOWN_LINUX 65364
 # define LEFT_LINUX 65361
 # define RIGHT_LINUX 65363
+
 //********************Struct parser*********************************//
 typedef struct s_parser
 {
@@ -209,6 +210,26 @@ typedef struct s_game_data
 	t_ray			raycaster;
 }	t_game_data;
 
+typedef struct s_cell
+{
+	int	x;
+	int	y;
+	int	color;
+	int	size;
+	int	offset_x;
+	int	offset_y;
+	int	i;
+}	t_cell;
+
+typedef struct s_line
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+}	t_line;
+
 typedef struct s_point
 {
 	double	x_p;
@@ -256,6 +277,8 @@ int		retrieve_texture_color(t_texture *texture, int y, int x);
 char	**allocate_texture_paths(t_game_data *data, t_map *map);
 void	cleanup_textures(t_game_data *data, size_t loaded_count);
 void	space_to_one(t_map *map);
+void	draw_line(t_game_data *data, t_point start, t_point end, int color);
+void	draw_cell_pixels(t_game_data *data, t_cell *cell);
 
 //********************Prototype Ray Casting*********************************//
 int		is_door_accessible(t_game_data *game_data, int x_coord, int y_coord);

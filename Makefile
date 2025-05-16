@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/15 22:43:26 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/16 11:29:59 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ B_SRCS = \
 	bonus/parser/ft_process.c\
 	bonus/parser/ft_utils.c\
 	bonus/parser/ft_texture.c\
+	bonus/parser/ft_algo.c\
 	bonus/parser/ft_minimap.c\
 	bonus/parser/ft_allocate.c\
 	bonus/ray_casting/cleaner.c\
