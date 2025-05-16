@@ -6,11 +6,16 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:28:17 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 17:28:21 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:29:04 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
+
+void check_leaks()
+{
+    system("leaks cub3d");
+}
 
 int	main(int argc, char *argv[])
 {
@@ -18,6 +23,7 @@ int	main(int argc, char *argv[])
 	char	*file;
 	int		ext_valid;
 
+	atexit(check_leaks);
 	mm = NULL;
 	if (argc != 2)
 	{
