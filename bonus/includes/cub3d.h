@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/16 11:35:59 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:24:22 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "utils.h"
-# include "../../mlx_linux/mlx.h"
+# include "../../mlx_mac/elcapitan/mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>

@@ -6,7 +6,7 @@
 #    By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 20:10:05 by rbouizer          #+#    #+#              #
-#    Updated: 2025/05/16 11:29:59 by rbouizer         ###   ########.fr        #
+#    Updated: 2025/05/16 12:36:56 by rbouizer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ NAME = cub3d
 B_NAME = cub3d_bonus
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address,leak,undefined
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
-# Linux MLX configuration (updated paths)
-MLX_DIR = ./mlx_linux
-MLX_LINUX = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+# macOS MLX configuration
+MLX_DIR = ./mlx_mac
+MLX_MAC = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 # Readline support
 LDFLAGS = -lreadline
@@ -140,11 +140,11 @@ bonus: $(B_NAME)
 
 $(NAME): $(OBJS)
 	@echo "🔗 Linking $(NAME)"
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LINUX) $(LDFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_MAC) $(LDFLAGS) -o $(NAME)
 
 $(B_NAME): $(B_OBJS)
 	@echo "🔗 Linking $(B_NAME)"
-	@$(CC) $(CFLAGS) $(B_OBJS) $(MLX_LINUX) $(LDFLAGS) -o $(B_NAME)
+	@$(CC) $(CFLAGS) $(B_OBJS) $(MLX_MAC) $(LDFLAGS) -o $(B_NAME)
 
 $(OBJ_DIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(dir $@)

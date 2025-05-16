@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:19:47 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 18:36:45 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:26:01 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-
-# define OPEN_MAX 1024
 
 char	*get_next_line(int fd, bool isfree);
 char	*ft_strdup(const char *s1);
