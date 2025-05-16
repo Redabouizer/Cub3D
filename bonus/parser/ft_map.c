@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:32:42 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/14 01:47:51 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:43:32 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	process_map_lines(t_mem **manager, int fd, t_map *map)
 	proc.map_line_count = &map_line_count;
 	line = read_fd(fd);
 	while (line != NULL)
-	{	
+	{
 		if (!process_line(manager, line, &proc))
 			return (0);
 		line = read_fd(fd);

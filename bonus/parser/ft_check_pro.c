@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:52:41 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/12 10:56:53 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:58:07 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	set_texture(char **texture, char *line)
 
 	path = ft_strtrim(line + 3, " \t\n\r\f\v");
 	if (!path)
-		return (printf("Error: Memory allocation failed\n"), 0);
+		return (perror("Error: Memory allocation failed\n"), 0);
 	if (!check_texture(path))
-		return (printf("Error: Texture not found ; %s\n", path), free(path), 0);
+		return (perror("Error: Texture not found"), free(path), 0);
 	if (*texture)
 		free(*texture);
 	*texture = path;

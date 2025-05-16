@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 18:30:04 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/16 12:24:31 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:55:00 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@
 # define TEXTURE_SIZE 64
 # define COLLISION_MARGIN 0.2
 
-# define ESC_LINUX 65307
-# define SPACE_LINUX  32
-# define W 119
-# define A 97
-# define S 115
-# define D 100
-# define UP_LINUX 65362
-# define DOWN_LINUX 65364
-# define LEFT_LINUX 65361
-# define RIGHT_LINUX 65363
+# define ESC_MAC 53
+# define SPACE_MAC 49
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define UP_MAC 126
+# define DOWN_MAC 125
+# define LEFT_MAC 123
+# define RIGHT_MAC 124
 
 //********************Struct parser*********************************//
 typedef struct s_parser

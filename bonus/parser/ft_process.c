@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:36:42 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:41:10 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:58:32 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	proc_init(char *trim, int *tab, int *map_on, char **fst_map_l)
 		*map_on = 1;
 		*fst_map_l = ft_strdup(trim);
 		if (!*fst_map_l)
-			return (printf("Error: Memory allocation failed\n"), 0);
+			return (perror("Error: Memory allocation failed\n"), 0);
 		if (!validate_continuous_ones(*fst_map_l))
 		{
 			free(*fst_map_l);
 			*fst_map_l = NULL;
-			return (printf("Error: First line invalid\n"), 0);
+			return (perror("Error: First line invalid\n"), 0);
 		}
 		return (1);
 	}
@@ -41,7 +41,7 @@ int	process_line_content(char **line, t_line_content *cnt, int *tab)
 	free(*line);
 	*line = NULL;
 	if (!trim)
-		return (printf("Error: Memory allocation failed\n"), 0);
+		return (perror("Error: Memory allocation failed\n"), 0);
 	if (trim[0] == '\0')
 	{
 		if (cnt->map_on)
@@ -101,12 +101,12 @@ int	process_file(const char *file)
 	fl.tab = tab;
 	fl.content.ply_count = &ply_count;
 	if (!process_file_lines(&fl))
-		return (printf("Validation failed\n"), close_fd(fd), -1);
+		return (perror("Validation failed\n"), close_fd(fd), -1);
 	if (close_fd(fd) < 0)
 		return (-1);
 	if (tab[0] != 1 || tab[1] != 1 || tab[2] != 1 || tab[3] != 1
 		|| tab[4] != 1 || tab[5] != 1 || ply_count != 1)
-		return (printf("Validation failed\n"), -1);
+		return (perror("Validation failed\n"), -1);
 	return (0);
 }
 
@@ -133,7 +133,7 @@ int	process_line(t_mem **manager, char *line, t_line_proc *proc)
 	}
 	else
 	{
-		printf("Error: Invalid line in map section\n");
+		perror("Error: Invalid line in map section\n");
 		return (free(trimmed), 0);
 	}
 	return (1);

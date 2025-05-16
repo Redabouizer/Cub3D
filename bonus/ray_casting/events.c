@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 03:49:38 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/13 21:24:25 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:51:35 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	handle_mouse_move(int x, int y, t_game_data *data)
 
 void	key_code(int keycode, t_game_data *data)
 {
-	if (keycode == ESC_LINUX)
+	if (keycode == ESC_MAC)
 		close_window(data);
-	else if (keycode == SPACE_LINUX)
+	else if (keycode == SPACE_MAC)
 		interact_with_door(data);
 }
 
@@ -79,21 +79,21 @@ int	handle_key_press(int keycode, t_game_data *data)
 		return (0);
 	ft_memset(&event, 0, sizeof(t_event));
 	event.movement_speed = PLAYER_MOVE_SPEED;
-	if (keycode == ESC_LINUX || keycode == SPACE_LINUX)
+	if (keycode == ESC_MAC || keycode == SPACE_MAC)
 		key_code(keycode, data);
 	else
 	{
-		if (keycode == W || keycode == UP_LINUX)
+		if (keycode == W || keycode == UP_MAC)
 			move_forward(data, event);
-		else if (keycode == S || keycode == DOWN_LINUX)
+		else if (keycode == S || keycode == DOWN_MAC)
 			move_backward(data, event);
-		else if (keycode == D || keycode == RIGHT_LINUX)
+		else if (keycode == D || keycode == RIGHT_MAC)
 			move_rightward(data, event);
-		else if (keycode == A || keycode == LEFT_LINUX)
+		else if (keycode == A || keycode == LEFT_MAC)
 			move_leftward(data, event);
-		if (keycode == LEFT_LINUX)
+		if (keycode == LEFT_MAC)
 			turn_left(data, &event);
-		else if (keycode == RIGHT_LINUX)
+		else if (keycode == RIGHT_MAC)
 			turn_right(data, &event);
 	}
 	return (refresh_image(data), 0);

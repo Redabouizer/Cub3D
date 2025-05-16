@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:21:07 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/13 01:34:29 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:59:54 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	setup_data(t_game_data *data, t_map *map)
 	(1) && (ft_memset(data, 0, sizeof(t_game_data)), data->mlx = mlx_init());
 	if (!data->mlx)
 	{
-		printf("Failed to initialize MLX!\n");
+		perror("Failed to initialize MLX!\n");
 		free_map_resources(map);
 		exit(EXIT_FAILURE);
 	}
@@ -25,14 +25,14 @@ void	setup_data(t_game_data *data, t_map *map)
 			SCREEN_HEIGHT, "Raycaster");
 	if (!data->window)
 	{
-		printf("Failed to create new window!\n");
+		perror("Failed to create new window!\n");
 		free_map_resources(map);
 		exit(EXIT_FAILURE);
 	}
 	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!data->img)
 	{
-		printf("Failed to create new image!\n");
+		perror("Failed to create new image!\n");
 		mlx_destroy_window(data->mlx, data->window);
 		free_map_resources(map);
 		exit(EXIT_FAILURE);
@@ -49,14 +49,14 @@ void	setup_world_map(t_game_data *data, t_map *map)
 	row = 0;
 	data->level_map = (int **)malloc(sizeof(int *) * data->map_height);
 	if (!data->level_map)
-		(printf("Memory allocation error\n"), free_map_resources(map),
+		(perror("Memory allocation error\n"), free_map_resources(map),
 			display_destruction(data), exit(EXIT_FAILURE));
 	while (row < data->map_height)
 	{
 		col = 0;
 		data->level_map[row] = (int *)malloc(sizeof(int) * data->map_width);
 		if (!data->level_map[row])
-			(printf("Memory allocation error\n"), free_map_resources(map),
+			(perror("Memory allocation error\n"), free_map_resources(map),
 				display_destruction(data), exit(EXIT_FAILURE));
 		while (col < data->map_width)
 		{

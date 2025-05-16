@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:20:07 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:20:10 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:59:05 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 int	validate_map_section(char *trimmed, int *map_ended, char **last_line)
 {
 	if (!check_map(trimmed))
-		return (printf("Error: Non-map line detected\n"), 0);
+		return (perror("Error: Non-map line detected\n"), 0);
 	if (*map_ended)
-		return (printf("Error: Double map detected\n"), 0);
+		return (perror("Error: Double map detected\n"), 0);
 	if (!validate_map_borders(trimmed))
-		return (printf("Error: Invalid map borders\n"), 0);
+		return (perror("Error: Invalid map borders\n"), 0);
 	if (*last_line)
 		free(*last_line);
 	*last_line = ft_strdup(trimmed);
 	if (!*last_line)
-		return (printf("Error: Memory allocation failed\n"), 0);
+		return (perror("Error: Memory allocation failed\n"), 0);
 	return (1);
 }
 
 int	validate_wrapper(char *trim, int *mp_end, char **lst_mp_l)
 {
 	if (*mp_end)
-		return (printf("Error: Map content after empty line\n"), 0);
+		return (perror("Error: Map content after empty line\n"), 0);
 	return (validate_map_section(trim, mp_end, lst_mp_l));
 }
 
@@ -40,7 +40,7 @@ int	validate_state(char *first_map_line, char *last_map_line)
 	if (last_map_line && !validate_continuous_ones(last_map_line))
 	{
 		cleanup_map_lines(first_map_line, last_map_line);
-		return (printf("Error: Last line invalid\n"), 0);
+		return (perror("Error: Last line invalid\n"), 0);
 	}
 	cleanup_map_lines(first_map_line, last_map_line);
 	return (1);

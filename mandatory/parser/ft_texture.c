@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:42:02 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/11 16:53:59 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:59:36 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	**allocate_texture_paths(t_game_data *data, t_map *map)
 	if (!paths)
 	{
 		free_all(data, map, 0);
-		printf("Error: Memory allocation for texture paths failed\n");
+		perror("Error: Memory allocation for texture paths failed\n");
 		exit(EXIT_FAILURE);
 	}
 	paths[0] = ft_strdup(map->north_texture);
@@ -54,7 +54,7 @@ int	load_textures(t_game_data *data, t_map *map)
 				paths[index], &width, &height);
 		if (!data->textures[index].img)
 		{
-			printf("Error loading texture from %s\n", paths[index]);
+			perror("Error loading texture\n");
 			free_path(paths);
 			return (1);
 		}

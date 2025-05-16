@@ -6,7 +6,7 @@
 /*   By: rbouizer <rbouizer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:20:24 by rbouizer          #+#    #+#             */
-/*   Updated: 2025/05/12 11:34:56 by rbouizer         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:01:11 by rbouizer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	process_metadata(t_map *map, char *line)
 	else if (!ft_strncmp(line, "C ", 2))
 		return (get_color(line + 2, &map->ceiling_color));
 	else if (!check_texture("bonus/textures/door.xpm"))
-		return (printf("Error: Texture Door not found"), 0);
+		return (perror("Error: Texture Door not found"), 0);
 	return (1);
 }
 
