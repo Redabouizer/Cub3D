@@ -58,7 +58,6 @@ SRCS = \
 	mandatory/parser/ft_process.c\
 	mandatory/parser/ft_utils.c\
 	mandatory/parser/ft_texture.c\
-	mandatory/parser/test.c\
 	mandatory/ray_casting/cleaner.c\
 	mandatory/ray_casting/cleaner_pro.c\
 	mandatory/ray_casting/collision_detection.c\
@@ -124,7 +123,6 @@ B_SRCS = \
 	bonus/ray_casting/utils1.c\
 	bonus/ray_casting/utils2.c\
 	bonus/ray_casting/move.c\
-	bonus/parser/test.c\
 	bonus/main.c
 
 OBJ_DIR = objects
