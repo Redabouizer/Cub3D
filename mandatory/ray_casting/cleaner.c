@@ -62,17 +62,6 @@ void	free_images(t_game_data *data)
 	}
 }
 
-void	free_mlx(t_game_data *data)
-{
-	if (!data)
-		return ;
-	if (data->mlx)
-	{
-		free(data->mlx);
-		data->mlx = NULL;
-	}
-}
-
 void	free_all(t_game_data *data, t_map *map, int flag)
 {
 	if (!data)
@@ -82,5 +71,4 @@ void	free_all(t_game_data *data, t_map *map, int flag)
 	free_worldmap(data);
 	if (map && flag)
 		free_map_resources(map);
-	free_mlx(data);
 }
